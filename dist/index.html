@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <title>materialartig</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        @font-face {
+            font-family: "Icons";
+            font-style: normal;
+            font-weight: 400;
+            src: url("/fonts/materialicons-regular-webfont.woff2") format('woff2');
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: "Icons-Outlined";
+            font-style: normal;
+            font-weight: 400;
+            src: url("/fonts/materialiconsoutlined-regular-webfont.woff2") format('woff2');
+            font-display: swap;
+        }
+    </style>
+
+    <script type="module">
+        import {
+            App,
+            Element,
+            Column,
+            Row
+        } from '/application.mjs'
+        import {
+            IconButton,
+            IconToggleButton,
+            OutlinedIconButton,
+            OutlinedIconToggleButton,
+            FilledTonalIconButton,
+            FilledTonalIconToggleButton,
+            FilledIconButton,
+            FilledIconToggleButton
+        } from '/buttons.mjs'
+
+        const app = new App({
+            child: new Column({
+                children: [
+                    new Row({
+                        gap: 8,
+                        padding: 8,
+                        children: [
+                            new IconButton({
+                                label: 'BTN',
+                                icon: "\ue88d",
+                                onclick: function (e) {
+                                    console.log(this)
+                                }
+                            }),
+                            new IconButton({
+                                label: 'BTN',
+                                icon: "\ue88e",
+                                disabled: 1,
+                                onclick: function (e) {
+                                    console.log(this)
+                                }
+                            }),
+                        ]
+                    }),
+                    new Row({
+                        gap: 8,
+                        padding: 8,
+                        children: [
+                            new IconToggleButton({
+                                label: 'BTN',
+                                icon: "\ue88d",
+                                onclick: function (e) {
+                                    console.log(this)
+                                }
+                            }),
+                            new IconToggleButton({
+                                label: 'BTN',
+                                disabled: 1,
+                                icon: "\ue88e",
+                                onclick: function (e) {
+                                    console.log(this)
+                                }
+                            }),
+                        ]
+                    }),
+                    new Row({
+                        gap: 8,
+                        padding: 8,
+                        children: [
+                            new OutlinedIconButton({
+                                label: 'BTN',
+                                icon: "\ue88d",
+                                onclick: function (e) {
+                                    console.log(this)
+                                }
+                            }),
+                            new OutlinedIconButton({
+                                label: 'BTN',
+                                disabled: 1,
+                                icon: "\ue88e",
+                                onclick: function (e) {
+                                    console.log(this)
+                                }
+                            }),
+                        ]
+                    }),
+                    new Row({
+                        gap: 8,
+                        padding: 8,
+                        children: [
+                            new OutlinedIconToggleButton({
+                                label: 'BTN',
+                                icon: "\ue88d",
+                                onclick: function (e) {
+                                    console.log(this)
+                                }
+                            }),
+                            new OutlinedIconToggleButton({
+                                label: 'BTN',
+                                disabled: 1,
+                                icon: "\ue88e",
+                                onclick: function (e) {
+                                    console.log(this)
+                                }
+                            }),
+                        ]
+                    }),
+                    new Row({
+                        gap: 8,
+                        padding: 8,
+                        children: [
+                            new FilledTonalIconButton({
+                                label: 'BTN',
+                                icon: "\ue88d",
+                                onclick: function (e) {
+                                    console.log(this)
+                                }
+                            }),
+                            new FilledTonalIconButton({
+                                label: 'BTN',
+                                disabled: 1,
+                                icon: "\ue88e",
+                                onclick: function (e) {
+                                    console.log(this)
+                                }
+                            }),
+                        ]
+                    }),
+                    new Row({
+                        gap: 8,
+                        padding: 8,
+                        children: [
+                            new FilledTonalIconToggleButton({
+                                label: 'BTN',
+                                icon: "\ue88d",
+                                onclick: function (e) {
+                                    console.log(this)
+                                }
+                            }),
+                            new FilledTonalIconToggleButton({
+                                label: 'BTN',
+                                disabled: 1,
+                                icon: "\ue88e",
+                                onclick: function (e) {
+                                    console.log(this)
+                                }
+                            }),
+                        ]
+                    }),
+                    new Row({
+                        gap: 8,
+                        padding: 8,
+                        children: [
+                            new FilledIconButton({
+                                label: 'BTN',
+                                icon: "\ue88d",
+                                onclick: function (e) {
+                                    console.log(this)
+                                }
+                            }),
+                            new FilledIconButton({
+                                label: 'BTN',
+                                disabled: 1,
+                                icon: "\ue88e",
+                                onclick: function (e) {
+                                    console.log(this)
+                                }
+                            }),
+                        ]
+                    }),
+                    new Row({
+                        gap: 8,
+                        padding: 8,
+                        children: [
+                            new FilledIconToggleButton({
+                                label: 'BTN',
+                                icon: "\ue88d",
+                                onclick: function (e) {
+                                    console.log(this)
+                                }
+                            }),
+                            new FilledIconToggleButton({
+                                label: 'BTN',
+                                disabled: 1,
+                                icon: "\ue88e",
+                                onclick: function (e) {
+                                    console.log(this)
+                                }
+                            }),
+                        ]
+                    })
+                ]
+            })
+
+        });
+
+    </script>
+</head>
+
+</html>
