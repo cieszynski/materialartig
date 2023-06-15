@@ -24,6 +24,55 @@
         }
     </style>
 
+    <style>
+        :root {
+            /* IconButton,FilledIconButton */
+            --color-primary: var(--color-light-primary, 103, 80, 164);
+
+            /* OutlinedIconToggleButton */
+            --color-inverse-surface: var(--color-light-inverse-surface, 49, 48, 51);
+
+            /* OutlinedIconToggleButton */
+            --color-on-inverse-surface: var(--color-light-on-inverse-surface, 244, 239, 244);
+
+            /* FilledIconButton, FilledIconToggleButton, FilledTonalIconButton, FilledTonalIconToggleButton */
+            --color-on-primary: var(--color-light-on-primary, 255, 255, 255);
+
+            /* FilledTonalIconButton, FilledTonalIconToggleButton */
+            --color-on-secondary-container: var(--color-light-on-secondary-container, 30, 25, 43);
+
+            /* IconButton */
+            --color-on-surface: var(--color-light-on-surface, 28, 27, 31);
+
+            /* IconButton, OutlinedIconButton */
+            --color-on-surface-variant: var(--color-light-on-surface-variant, 73, 69, 78);
+
+            /* OutlinedIconButton */
+            --color-outline: var(--color-light-outline, 121, 116, 126);
+
+            /* FilledTonalIconButton */
+            --color-secondary-container: var(--color-light-secondary-container, 232, 222, 248);
+
+            /*  */
+            --color-surface-container-highest: var(--color-light-surface-container-highest, 230, 225, 229);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --color-primary: var(--color-dark-primary, 208, 188, 255);
+                --color-inverse-surface: var(--color-dark-inverse-surface, 230, 225, 229);
+                --color-on-inverse-surface: var(--color-dark-on-inverse-surface, 49, 48, 51);
+                --color-on-primary: var(--color-dark-on-primary, 55, 30, 115);
+                --color-on-secondary-container: var(--color-dark-on-secondary-container, 232, 222, 248);
+                --color-on-surface: var(--color-dark-on-surface, 230, 225, 229);
+                --color-on-surface-variant: var(--color-dark-on-surface-variant, 202, 196, 208);
+                --color-outline: var(--color-dark-outline, 147, 143, 153);
+                --color-secondary-container: var(--color-dark-secondary-container, 74, 68, 88);
+                --color-surface-container-highest: var(--color-dark-surface-container-highest, 73, 69, 79);
+            }
+        }
+    </style>
+
     <script type="module">
         import {
             App,
@@ -52,38 +101,26 @@
                             new IconButton({
                                 label: 'BTN',
                                 icon: "\ue88d",
-                                onclick: function (e) {
-                                    console.log(this)
-                                }
                             }),
                             new IconButton({
                                 label: 'BTN',
-                                icon: "\ue88e",
+                                icon: "\ue88d",
                                 disabled: 1,
-                                onclick: function (e) {
-                                    console.log(this)
-                                }
                             }),
-                        ]
-                    }),
-                    new Row({
-                        gap: 8,
-                        padding: 8,
-                        children: [
                             new IconToggleButton({
                                 label: 'BTN',
                                 icon: "\ue88d",
-                                onclick: function (e) {
-                                    console.log(this)
-                                }
                             }),
                             new IconToggleButton({
                                 label: 'BTN',
                                 disabled: 1,
-                                icon: "\ue88e",
-                                onclick: function (e) {
-                                    console.log(this)
-                                }
+                                icon: "\ue88d",
+                            }),
+                            new IconToggleButton({
+                                label: 'BTN',
+                                disabled: 1,
+                                checked: 1,
+                                icon: "\ue88d",
                             }),
                         ]
                     }),
@@ -94,38 +131,26 @@
                             new OutlinedIconButton({
                                 label: 'BTN',
                                 icon: "\ue88d",
-                                onclick: function (e) {
-                                    console.log(this)
-                                }
                             }),
                             new OutlinedIconButton({
                                 label: 'BTN',
                                 disabled: 1,
                                 icon: "\ue88e",
-                                onclick: function (e) {
-                                    console.log(this)
-                                }
                             }),
-                        ]
-                    }),
-                    new Row({
-                        gap: 8,
-                        padding: 8,
-                        children: [
                             new OutlinedIconToggleButton({
                                 label: 'BTN',
                                 icon: "\ue88d",
-                                onclick: function (e) {
-                                    console.log(this)
-                                }
                             }),
                             new OutlinedIconToggleButton({
                                 label: 'BTN',
                                 disabled: 1,
                                 icon: "\ue88e",
-                                onclick: function (e) {
-                                    console.log(this)
-                                }
+                            }),
+                            new OutlinedIconToggleButton({
+                                label: 'BTN',
+                                disabled: 1,
+                                checked: true,
+                                icon: "\ue88e",
                             }),
                         ]
                     }),
@@ -136,38 +161,26 @@
                             new FilledTonalIconButton({
                                 label: 'BTN',
                                 icon: "\ue88d",
-                                onclick: function (e) {
-                                    console.log(this)
-                                }
                             }),
                             new FilledTonalIconButton({
                                 label: 'BTN',
                                 disabled: 1,
                                 icon: "\ue88e",
-                                onclick: function (e) {
-                                    console.log(this)
-                                }
                             }),
-                        ]
-                    }),
-                    new Row({
-                        gap: 8,
-                        padding: 8,
-                        children: [
                             new FilledTonalIconToggleButton({
                                 label: 'BTN',
                                 icon: "\ue88d",
-                                onclick: function (e) {
-                                    console.log(this)
-                                }
                             }),
                             new FilledTonalIconToggleButton({
                                 label: 'BTN',
                                 disabled: 1,
                                 icon: "\ue88e",
-                                onclick: function (e) {
-                                    console.log(this)
-                                }
+                            }),
+                            new FilledTonalIconToggleButton({
+                                label: 'BTN',
+                                disabled: 1,
+                                checked: 1,
+                                icon: "\ue88e",
                             }),
                         ]
                     }),
@@ -178,41 +191,29 @@
                             new FilledIconButton({
                                 label: 'BTN',
                                 icon: "\ue88d",
-                                onclick: function (e) {
-                                    console.log(this)
-                                }
                             }),
                             new FilledIconButton({
                                 label: 'BTN',
                                 disabled: 1,
                                 icon: "\ue88e",
-                                onclick: function (e) {
-                                    console.log(this)
-                                }
                             }),
-                        ]
-                    }),
-                    new Row({
-                        gap: 8,
-                        padding: 8,
-                        children: [
                             new FilledIconToggleButton({
                                 label: 'BTN',
                                 icon: "\ue88d",
-                                onclick: function (e) {
-                                    console.log(this)
-                                }
                             }),
                             new FilledIconToggleButton({
                                 label: 'BTN',
                                 disabled: 1,
+                                icon: "\ue88d",
+                            }),
+                            new FilledIconToggleButton({
+                                label: 'BTN',
+                                disabled: 1,
+                                checked: 1,
                                 icon: "\ue88e",
-                                onclick: function (e) {
-                                    console.log(this)
-                                }
                             }),
                         ]
-                    })
+                    }),
                 ]
             })
 
