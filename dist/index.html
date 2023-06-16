@@ -10,7 +10,6 @@
         @font-face {
             font-family: "Icons";
             font-style: normal;
-            font-weight: 400;
             src: url("/fonts/materialicons-regular-webfont.woff2") format('woff2');
             font-display: swap;
         }
@@ -18,15 +17,30 @@
         @font-face {
             font-family: "Icons-Outlined";
             font-style: normal;
-            font-weight: 400;
             src: url("/fonts/materialiconsoutlined-regular-webfont.woff2") format('woff2');
             font-display: swap;
+        }
+
+        .typeface-brand {
+            font-family: Roboto;
+        }
+
+        .typeface-plain {
+            font-family: Roboto;
+        }
+
+        /* TextCommonButton */
+        .typescale-label-large {
+            font-weight: 500;
+            font-size: 14rem;
+            line-height: 20rem;
+            letter-spacing: .1rem;
         }
     </style>
 
     <style>
         :root {
-            /* IconButton,FilledIconButton */
+            /* IconButton,FilledIconButton,TextCommonButton,OutlinedCommonButton */
             --color-primary: var(--color-light-primary, 103, 80, 164);
 
             /* OutlinedIconToggleButton */
@@ -53,8 +67,12 @@
             /* FilledTonalIconButton */
             --color-secondary-container: var(--color-light-secondary-container, 232, 222, 248);
 
+            /* ElevatedCommonButton */
+            --color-surface-container-low: var(--color-light-surface-container-low, 247, 242, 247);
             /*  */
             --color-surface-container-highest: var(--color-light-surface-container-highest, 230, 225, 229);
+
+            --color-shadow: var(--color-light-shadow, 0, 0, 0);
         }
 
         @media (prefers-color-scheme: dark) {
@@ -68,8 +86,10 @@
                 --color-on-surface-variant: var(--color-dark-on-surface-variant, 202, 196, 208);
                 --color-outline: var(--color-dark-outline, 147, 143, 153);
                 --color-secondary-container: var(--color-dark-secondary-container, 74, 68, 88);
+                --color-surface-container-low: var(--color-dark-surface-container-low, 28, 27, 30);
                 --color-surface-container-highest: var(--color-dark-surface-container-highest, 73, 69, 79);
-            }
+                --color-shadow: var(--color-light-shadow, 0, 0, 0);
+             }
         }
     </style>
 
@@ -88,7 +108,14 @@
             FilledTonalIconButton,
             FilledTonalIconToggleButton,
             FilledIconButton,
-            FilledIconToggleButton
+            FilledIconToggleButton,
+            /*  */
+            TextCommonButton,
+            OutlinedCommonButton,
+            FilledTonalCommonButton,
+            FilledCommonButton,
+            ElevatedCommonButton,
+            /*  */
         } from '/buttons.mjs'
 
         const app = new App({
@@ -214,6 +241,141 @@
                             }),
                         ]
                     }),
+                    new Column({
+                        gap: 8,
+                        padding: 8,
+                        children: [
+                            new TextCommonButton({
+                                label: 'Textbutton'
+                            }),
+                            new TextCommonButton({
+                                label: 'Textbutton',
+                                disabled: 1,
+                            }),
+                            new TextCommonButton({
+                                label: 'Textbutton Icon',
+                                icon: "\ue88d",
+                            }),
+                            new TextCommonButton({
+                                label: 'Textbutton Icon',
+                                icon: "\ue88d",
+                                disabled: 1,
+                            }),
+                            new TextCommonButton({
+                                label: 'Textbutton Icon',
+                                icon: "\ue88d",
+                                responsive: 1
+                            }),
+                        ]
+                    }),
+                    new Column({
+                        gap: 8,
+                        padding: 8,
+                        children: [
+                            new OutlinedCommonButton({
+                                label: 'OutlinedCommonButton'
+                            }),
+                            new OutlinedCommonButton({
+                                label: 'OutlinedCommonButton',
+                                disabled: 1,
+                            }),
+                            new OutlinedCommonButton({
+                                label: 'OutlinedCommonButton Icon',
+                                icon: "\ue88d",
+                            }),
+                            new OutlinedCommonButton({
+                                label: 'OutlinedCommonButton Icon',
+                                icon: "\ue88d",
+                                disabled: 1,
+                            }),
+                            new OutlinedCommonButton({
+                                label: 'OutlinedCommonButton Icon',
+                                icon: "\ue88d",
+                                responsive: 1
+                            }),
+                        ]
+                    }),
+                    new Column({
+                        gap: 8,
+                        padding: 8,
+                        children: [
+                            new FilledTonalCommonButton({
+                                label: 'FilledTonalCommonButton'
+                            }),
+                            new FilledTonalCommonButton({
+                                label: 'FilledTonalCommonButton',
+                                disabled: 1,
+                            }),
+                            new FilledTonalCommonButton({
+                                label: 'FilledTonalCommonButton Icon',
+                                icon: "\ue88d",
+                            }),
+                            new FilledTonalCommonButton({
+                                label: 'FilledTonalCommonButton Icon',
+                                icon: "\ue88d",
+                                disabled: 1,
+                            }),
+                            new FilledTonalCommonButton({
+                                label: 'FilledTonalCommonButton Icon',
+                                icon: "\ue88d",
+                                responsive: 1
+                            }),
+                        ]
+                    }),
+                    new Column({
+                        gap: 8,
+                        padding: 8,
+                        children: [
+                            new FilledCommonButton({
+                                label: 'FilledCommonButton'
+                            }),
+                            new FilledCommonButton({
+                                label: 'FilledCommonButton',
+                                disabled: 1,
+                            }),
+                            new FilledCommonButton({
+                                label: 'FilledCommonButton Icon',
+                                icon: "\ue88d",
+                            }),
+                            new FilledCommonButton({
+                                label: 'FilledCommonButton Icon',
+                                icon: "\ue88d",
+                                disabled: 1,
+                            }),
+                            new FilledCommonButton({
+                                label: 'FilledCommonButton Icon',
+                                icon: "\ue88d",
+                                responsive: 1
+                            }),
+                        ]
+                    }),
+                    new Column({
+                        gap: 8,
+                        padding: 8,
+                        children: [
+                            new ElevatedCommonButton({
+                                label: 'ElevatedCommonButton'
+                            }),
+                            new ElevatedCommonButton({
+                                label: 'ElevatedCommonButton',
+                                disabled: 1,
+                            }),
+                            new ElevatedCommonButton({
+                                label: 'ElevatedCommonButton Icon',
+                                icon: "\ue88d",
+                            }),
+                            new ElevatedCommonButton({
+                                label: 'ElevatedCommonButton Icon',
+                                icon: "\ue88d",
+                                disabled: 1,
+                            }),
+                            new ElevatedCommonButton({
+                                label: 'ElevatedCommonButton Icon',
+                                icon: "\ue88d",
+                                responsive: 1
+                            }),
+                        ]
+                    })
                 ]
             })
 

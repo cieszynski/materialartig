@@ -309,3 +309,151 @@ export class FilledIconToggleButton extends IconToggleButton {
         this.node.className = 'icon filled';
     }
 }
+
+/*  */
+
+export class CommonButton extends Button {
+
+    static #css = `
+        button.common {
+            --label-icon-disabled: var(--color-on-surface);
+            color: rgba(var(--label-icon-color-default), 1);
+            background-color: rgba(var(--container-color-default), 1);
+            border-radius: 20rem;
+            border-style: solid;
+            border-width: 0;
+            height: 40rem;
+            width: fit-content;
+            min-width: 48rem;
+            padding: 10rem 24rem 10rem 0rem;
+        }
+
+        button.common::before {
+            font-family: Icons-Outlined;
+            font-size: 18rem;
+            line-height: 1;
+            padding: 11rem 8rem 11rem 16rem;
+            vertical-align: text-bottom;
+            content: attr(data-icon);
+        }
+
+        button.common:not(:disabled,:active):hover {
+            background-image: linear-gradient(rgba(var(--label-icon-color-default), .08) 0 100%);
+        }
+
+        button.common:not(:disabled):focus,
+        button.common:not(:disabled):active {
+            background-image: linear-gradient(rgba(var(--label-icon-color-default), .12) 0 100%);
+        }
+
+        button.common:disabled {
+            color: rgba(var(--label-icon-disabled), .38);
+            background-color: rgba(var(--container-disabled), .12);
+            border-color: rgba(var(--label-icon-disabled), .12) !important;
+            box-shadow: none !important;
+        }
+    `
+    static { super.initonce(this.#css) }
+
+    constructor(properties) {
+        super(properties)
+    }
+
+    set icon(str) { this.node.dataset.icon = str; }
+
+    set responsive(bool) {
+        this.node.style.width = {
+            true: '100%',
+            false: 'fit-content'
+        }[!!bool];
+    }
+}
+
+export class TextCommonButton extends CommonButton {
+
+    static #css = `
+        button.common.text {
+            --label-icon-color-default: var(--color-primary);
+        }
+    `
+    static { super.initonce(this.#css) }
+
+    constructor(properties) {
+        super(properties)
+
+        this.node.className = 'common text typeface-plain typescale-label-large';
+    }
+}
+
+export class OutlinedCommonButton extends CommonButton {
+
+    static #css = `
+        button.common.outlined {
+            --label-icon-color-default: var(--color-primary);
+            border-color: rgba(var(--color-outline), 1);
+            border-width: 1rem;
+        }
+    `
+    static { super.initonce(this.#css) }
+
+    constructor(properties) {
+        super(properties)
+
+        this.node.className = 'common outlined typeface-plain typescale-label-large';
+    }
+}
+
+export class FilledTonalCommonButton extends CommonButton {
+
+    static #css = `
+        button.common.filled-tonal {
+            --label-icon-color-default: var(--color-on-secondary-container);
+            --container-color-default: var(--color-secondary-container);
+            --container-disabled: var(--color-on-surface);
+        }
+    `
+    static { super.initonce(this.#css) }
+
+    constructor(properties) {
+        super(properties)
+
+        this.node.className = 'common filled-tonal typeface-plain typescale-label-large';
+    }
+}
+
+export class FilledCommonButton extends CommonButton {
+
+    static #css = `
+        button.common.filled {
+            --label-icon-color-default: var(--color-on-primary);
+            --container-color-default: var(--color-primary);
+            --container-disabled: var(--color-on-surface);
+        }
+    `
+    static { super.initonce(this.#css) }
+
+    constructor(properties) {
+        super(properties)
+
+        this.node.className = 'common filled typeface-plain typescale-label-large';
+    }
+}
+
+export class ElevatedCommonButton extends CommonButton {
+
+    static #css = `
+        button.common.elevated {
+            --label-icon-color-default: var(--color-primary);
+            --container-color-default: var(--color-surface-container-low);
+            --container-disabled: var(--color-on-surface);
+            box-shadow: 0 1rem 8rem -5rem rgba(var(--color-shadow), 1);
+        }
+    `
+    static { super.initonce(this.#css) }
+
+    constructor(properties) {
+        super(properties)
+
+        this.node.className = 'common elevated typeface-plain typescale-label-large';
+    }
+}
