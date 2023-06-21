@@ -89,16 +89,21 @@
                 --color-surface-container-low: var(--color-dark-surface-container-low, 28, 27, 30);
                 --color-surface-container-highest: var(--color-dark-surface-container-highest, 73, 69, 79);
                 --color-shadow: var(--color-light-shadow, 0, 0, 0);
-             }
+            }
         }
     </style>
-
+    <script>
+        var colors = {
+           // backgroundColor: 'green'
+        }
+    </script>
     <script type="module">
         import {
             App,
             Element,
             Column,
-            Row
+            Row,
+            Stack
         } from '/application.mjs'
         import {
             IconButton,
@@ -119,6 +124,10 @@
         } from '/buttons.mjs'
 
         const app = new App({
+            navitems: [
+                new Stack({}),
+                new Stack({})
+            ],
             child: new Column({
                 children: [
                     new Row({
@@ -380,7 +389,6 @@
             })
 
         });
-
     </script>
 </head>
 

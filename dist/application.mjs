@@ -1,19 +1,20 @@
 /* application.mjs */
 
+export const CSS = (strings, ...values) => {
+    (new CSSStyleSheet())
+        .replace(String.raw({ raw: strings }, ...values))
+        .then((sheet) => {
+            document.adoptedStyleSheets[
+                document.adoptedStyleSheets.length
+            ] = sheet;
+        });
+}
+
+
 export class Widget {
 
-    static initonce(css = "") {
-        (new CSSStyleSheet())
-            .replace(css)
-            .then((sheet) => {
-                document.adoptedStyleSheets[
-                    document.adoptedStyleSheets.length
-                ] = sheet;
-            });
-    }
-
     constructor(properties, data) {
-
+        
         this.node = Object.assign(
             document.createElement(data.nodeName),
             {
@@ -42,7 +43,7 @@ export class Widget {
 export class Element extends Widget {
 
     constructor(properties, data) {
-        super(properties, data)
+        super(properties, data);
     }
 }
 
@@ -76,48 +77,66 @@ export class Container extends Widget {
     set paddingBottom(num) { this.node.style.paddingBottom = `${num}rem`; }
 }
 
-export class App extends Widget {
 
-    static #css = `
-    *,
-    *::before,
-    *::after {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        user-select: none;
-    }
-
-    *:focus { outline: none; }
-
-    html {
-        font-size: 6.25%;
-    }`
-
-    static { super.initonce(this.#css) }
-
-    constructor(properties) {
-        super(properties, { nodeName: 'main', innerHTML: '<div/>' })
-
-        document.body.insertAdjacentElement('afterbegin', this.node);
-    }
-
-    set child(elem) { this.node.firstElementChild.replaceWith(elem.node); }
+CSS`
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+    list-style: none;
 }
 
+*:focus { outline: none; }
+
+html {
+    font-size: 6.25%;
+}`
+
+export class App extends Widget {
+
+    constructor(properties) {
+        super(properties, {
+            nodeName: 'body',
+            innerHTML: `
+            <main>
+                <div/>
+            </main>
+            <nav>
+                <div/>
+            </nav>` });
+        document.body.replaceWith(this.node);
+    }
+
+    set child(elem) {
+        this.node
+            .querySelector('main')
+            .replaceChildren(elem.node);
+    }
+
+    set navitems(arr) {
+        this.node
+            .querySelector('nav>div')
+            .replaceChildren(
+                ...arr.map(elem => elem.node)
+            );
+    }
+}
+
+
 /*  */
+CSS`
+div.column {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow-y: auto;
+    position: relative;
+}`
+
 export class Column extends Container {
-
-    static #css = `
-    div.column {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-        overflow-y: auto;
-        position: relative;
-    }`
-
-    static { super.initonce(this.#css) }
 
     constructor(properties) {
 
@@ -130,16 +149,15 @@ export class Column extends Container {
     set gap(num) { this.node.style.gap = `${num}rem`; }
 }
 
+
+CSS`
+div.row {
+    display: flex;
+    flex-direction: row;
+    height: fit-content;
+}`
+
 export class Row extends Container {
-
-    static #css = `
-    div.row {
-        display: flex;
-        flex-direction: row;
-        height: fit-content;
-    }`
-
-    static { super.initonce(this.#css) }
 
     constructor(properties) {
 
@@ -150,4 +168,32 @@ export class Row extends Container {
     }
 
     set gap(num) { this.node.style.gap = `${num}rem`; }
+}
+
+
+CSS`
+div.stack {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+div.stack>* {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+`
+
+export class Stack extends Widget {
+
+    constructor(properties) {
+
+        super(properties, {
+            nodeName: 'div',
+            className: 'stack'
+        });
+    }
 }
