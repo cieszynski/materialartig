@@ -14,7 +14,7 @@ export const CSS = (strings, ...values) => {
 export class Widget {
 
     constructor(properties, data) {
-        
+
         this.node = Object.assign(
             document.createElement(data.nodeName),
             {
@@ -147,6 +147,11 @@ export class Column extends Container {
     }
 
     set gap(num) { this.node.style.gap = `${num}rem`; }
+
+    set align(str) {
+        console.assert(['start', 'center', 'end'].includes(str), str);
+        this.node.style.alignItems = str;
+    }
 }
 
 
@@ -168,6 +173,11 @@ export class Row extends Container {
     }
 
     set gap(num) { this.node.style.gap = `${num}rem`; }
+
+    set align(str) {
+        console.assert(['start', 'center', 'end'].includes(str), str);
+        this.node.style.justifyContent = str;
+    }
 }
 
 
@@ -195,5 +205,11 @@ export class Stack extends Widget {
             nodeName: 'div',
             className: 'stack'
         });
+    }
+
+    set children(arr) {
+        this.node.replaceChildren(
+            ...arr.map(elem => elem.node)
+        );
     }
 }

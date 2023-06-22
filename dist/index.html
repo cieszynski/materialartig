@@ -94,7 +94,7 @@
     </style>
     <script>
         var colors = {
-           // backgroundColor: 'green'
+            // backgroundColor: 'green'
         }
     </script>
     <script type="module">
@@ -121,18 +121,19 @@
             FilledCommonButton,
             ElevatedCommonButton,
             /*  */
+            SegmentedButton,
+            ButtonSegment
         } from '/buttons.mjs'
 
         const app = new App({
             navitems: [
-                new Stack({}),
-                new Stack({})
             ],
             child: new Column({
                 children: [
                     new Row({
                         gap: 8,
                         padding: 8,
+                        align: 'end',
                         children: [
                             new IconButton({
                                 label: 'BTN',
@@ -163,6 +164,7 @@
                     new Row({
                         gap: 8,
                         padding: 8,
+                        align: 'center',
                         children: [
                             new OutlinedIconButton({
                                 label: 'BTN',
@@ -382,6 +384,87 @@
                                 label: 'ElevatedCommonButton Icon',
                                 icon: "\ue88d",
                                 responsive: 1
+                            }),
+                        ]
+                    }),
+                    new Column({
+                        gap: 8,
+                        padding: 8,
+                        align: 'center',
+                        children: [
+                            new SegmentedButton({
+                                label: 'Test',
+                                density: 3,
+                                segments: [
+                                    new ButtonSegment({
+                                        label: 'alless'
+                                    }),
+                                    new ButtonSegment({
+                                        label: 'oder'
+                                    }),
+                                    new ButtonSegment({
+                                        label: 'was',
+                                        disabled: 0
+                                    })
+                                ]
+                            }),
+                            new SegmentedButton({
+                                density: 2,
+                                label: 'Test',
+                                segments: [
+                                    new ButtonSegment({
+                                        icon: "\ue88a",
+                                        label: 'alles'
+                                    }),
+                                    new ButtonSegment({
+                                        icon: "\ue88b",
+                                        label: 'oder'
+                                    }),
+                                    new ButtonSegment({
+                                        icon: "\ue88d",
+                                        label: 'was',
+                                        disabled: true
+                                    }),
+                                ]
+                            }),
+                            new SegmentedButton({
+                                label: 'Test',
+                                iconsOnly: 1,
+                                segments: [
+                                    new ButtonSegment({
+                                        icon: "\ue88a",
+                                        label: 'alles'
+                                    }),
+                                    new ButtonSegment({
+                                        icon: "\ue88b",
+                                        label: 'oder'
+                                    }),
+                                    new ButtonSegment({
+                                        icon: "\ue88d",
+                                        label: 'was',
+                                        disabled: true
+                                    }),
+                                ]
+                            }),
+                            new SegmentedButton({
+                                density: 3,
+                                label: 'Test',
+                                multiSelection: 1,
+                                segments: [
+                                    new ButtonSegment({
+                                        icon: "\ue88a",
+                                        label: 'alles'
+                                    }),
+                                    new ButtonSegment({
+                                        icon: "\ue88b",
+                                        label: 'oder'
+                                    }),
+                                    new ButtonSegment({
+                                        icon: "\ue88d",
+                                        label: 'was',
+                                        disabled: true
+                                    }),
+                                ]
                             }),
                         ]
                     })

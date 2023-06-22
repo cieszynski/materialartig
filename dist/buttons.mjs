@@ -449,3 +449,174 @@ export class ElevatedCommonButton extends CommonButton {
         this.node.className = 'common elevated typeface-plain typescale-label-large';
     }
 }
+
+
+CSS`
+fieldset.segmented {
+    border: none;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    max-width: fit-content;
+}
+
+fieldset.segmented legend {
+    visibility: hidden;
+    position: absolute;
+}
+`
+
+export class SegmentedButton extends Element {
+
+    static #ref = 0;
+
+    constructor(properties) {
+
+        super(properties, {
+            nodeName: 'fieldset',
+            className: 'segmented',
+            innerHTML: '<legend/>'
+        });
+
+        SegmentedButton.#ref += 1;
+    }
+
+    set label(str) { this.node.firstElementChild.textContent = str; }
+
+    set segments(arr) {
+        console.assert(Array.isArray(arr), 'only <Array> allowed');
+        console.assert(arr.every((segment) => {
+            return (segment instanceof ButtonSegment);
+        }), 'only <ButtonSegment> allowed');
+
+        this.node.replaceChildren(
+            this.node.firstElementChild,
+            ...arr.map(elem => {
+                elem.node.firstElementChild.type = 'radio';
+                elem.node.firstElementChild.name = `segmented${SegmentedButton.#ref}`;
+                return elem.node;
+            })
+        );
+    }
+
+    set multiSelection(bool) {
+        this.node.querySelectorAll('input').forEach(node => {
+            node.type = {
+                true: 'checkbox',
+                false: 'radio'
+            }[!!bool];
+        })
+    }
+
+    set iconsOnly(bool) { this.node.classList.toggle('icons-only', !!bool); }
+
+    set density(num) {
+        console.assert([1,2,3].includes(num), 'density: 1..3');
+
+        this.node.classList.toggle(`density${num}`, true);
+    }
+}
+
+CSS`
+label.segment {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 10rem 20rem;
+    margin: 4rem 0 4rem -1rem;
+}
+
+.density1 label.segment {
+    padding: 8rem 16rem;
+}
+
+.density2 label.segment {
+    padding: 6rem 12rem;
+}
+
+.density3 label.segment {
+    padding: 4rem 8rem;
+}
+
+label.segment span {
+    position: relative;
+    pointer-events: none; /* prevent dead-zones when :hover */
+}
+
+label.segment input {
+    appearance: none;
+}
+
+label.segment input::before {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    content: "";
+    border-style: solid;
+    border-width: 1rem 0 1rem 1rem;
+    border-color: rgba(var(--color-outline), 1);
+}
+
+label.segment:first-of-type input::before {
+    border-top-left-radius: 20rem;
+    border-bottom-left-radius: 20rem;
+}
+
+label.segment:last-of-type input::before {
+    border-top-right-radius: 20rem;
+    border-bottom-right-radius: 20rem;
+    border-right-width: 1rem;
+}
+
+label.segment input::after {
+    color: rgba(var(--color-on-surface), 1);
+    font-family: Icons-Outlined;
+    font-size: 18rem;
+    line-height: 1;
+    content: attr(data-icon);
+    vertical-align: text-bottom;
+    position: relative;
+    display: inline-block;
+    width: 26rem;
+}
+
+label.segment input:not(:checked, [data-icon])::after {
+    width: 0;
+}
+
+/* without icon: add space to prevent width-jumping when selected */
+label.segment input:not(:checked, [data-icon])+span::before,
+label.segment input:not(:checked, [data-icon])+span::after {
+    display: inline-block;
+    width: 13rem;
+    content: "";
+}
+
+label.segment input:checked::after {
+    color: rgba(var(--color-on-secondary-container), 1);
+    content: "\\e5ca";
+}
+
+.icons-only label.segment span {
+    font-size: 0;
+}
+
+.icons-only label.segment input::after {
+    width: 18rem;
+}
+`
+
+export class ButtonSegment extends ToggleButton {
+
+    constructor(properties) {
+
+        super(properties);
+
+        this.node.className = 'segment typeface-plain typescale-label-large';
+    }
+
+    set icon(str) { this.node.firstElementChild.dataset.icon = str; } /* icon + thin space */
+}
