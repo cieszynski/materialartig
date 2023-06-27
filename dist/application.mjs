@@ -1,5 +1,24 @@
 /* application.mjs */
 
+export const MEDIAQUERY_COMPACT = `
+    (max-width: ${window?.breakpoints?.compact ?? 600}px) 
+        and (orientation: portrait), 
+    (max-height: ${window?.breakpoints?.compact ?? 600}px) 
+        and (orientation: landscape)`;
+export const MEDIAQUERY_NOT_COMPACT = `
+    (min-width: ${window?.breakpoints?.compact ?? 600}px) 
+        and (orientation: portrait), 
+    (min-height: ${window?.breakpoints?.compact ?? 600}px) 
+        and (orientation: landscape)`;
+export const MEDIAQUERY_MEDIUM = `
+    (min-width: ${window?.breakpoints?.compact ?? 600}px) 
+        and (max-width: ${window?.breakpoints?.expanded ?? 1240}px) 
+        and (orientation: portrait), 
+    (min-height: ${window?.breakpoints?.compact ?? 600}px) 
+        and (max-height: ${window?.breakpoints?.expanded ?? 1240}px) 
+        and (orientation: landscape)`;
+export const MEDIAQUERY_EXPANDED = `(min-width: ${window?.breakpoints?.expanded ?? 1240}px)`;
+
 export const CSS = (strings, ...values) => {
     (new CSSStyleSheet())
         .replace(String.raw({ raw: strings }, ...values))
@@ -93,8 +112,52 @@ CSS`
 
 html {
     font-size: 6.25%;
-}`
+}
 
+body, html {
+    background-color: rgba(var(--color-surface), 1);
+    position: relative;
+    overflow: hidden;
+    width: 100vw;
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    overflow-y: scroll;
+    width: 100%;
+    height: 100%;
+}
+
+nav {
+    width: 100%;
+    height: 80rem;
+}
+
+@media ${MEDIAQUERY_NOT_COMPACT} {
+
+    body {
+        flex-direction: row-reverse;
+    }
+
+    nav {
+        height: 100%;
+        width: 80rem;
+    }
+    
+}
+
+@media ${MEDIAQUERY_EXPANDED} {
+    nav {
+        height: 100%;
+        width: 360rem;
+    }
+}
+`
 export class App extends Widget {
 
     constructor(properties) {
@@ -114,6 +177,11 @@ export class App extends Widget {
         this.node
             .querySelector('main')
             .replaceChildren(elem.node);
+    }
+
+    set navtype(str) {
+        console.assert(['navbar', 'rail', 'drawer', 'both', 'all'].includes(str), 'invalid navtype');
+        this.node.className = str;
     }
 
     set navitems(arr) {

@@ -51,6 +51,8 @@ export class ToggleButton extends Element {
 
     set checked(bool) { this.node.firstElementChild.checked = !!bool }
 
+    get checked() { return this.node.firstElementChild.checked; }
+
     set disabled(bool) { this.node.firstElementChild.disabled = !!bool }
 
     onclick(e) { console.debug(e) }
@@ -519,6 +521,13 @@ export class SegmentedButton extends Element {
 
 CSS`
 label.segment {
+    --container-outline-color: var(--color-outline);
+    --container-color-selected: var(--color-secondary-container);
+    --container-disabled: var(--color-on-surface);
+    --icon-color-unselected: var(--color-on-surface);
+    --icon-color-selected: var(--color-on-secondary-container);
+    --label-color-unselected: var(--color-on-surface);
+    --label-color-selected: var(--color-on-secondary-container);
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -539,10 +548,15 @@ label.segment {
     padding: 4rem 8rem;
 }
 
-label.segment span {
+label.segment input+span {
     position: relative;
     pointer-events: none; /* prevent dead-zones when :hover */
+    color: rgba(var(--label-color-unselected), 1);
 }
+
+label.segment input:checked+span {
+    color: rgba(var(--label-color-selected), 1);
+} 
 
 label.segment input {
     appearance: none;
@@ -557,7 +571,11 @@ label.segment input::before {
     content: "";
     border-style: solid;
     border-width: 1rem 0 1rem 1rem;
-    border-color: rgba(var(--color-outline), 1);
+    border-color: rgba(var(--container-outline-color), 1);
+}
+
+label.segment input:checked::before {
+    background-color: rgba(var(--container-color-selected), 1);
 }
 
 label.segment:first-of-type input::before {
@@ -572,7 +590,7 @@ label.segment:last-of-type input::before {
 }
 
 label.segment input::after {
-    color: rgba(var(--color-on-surface), 1);
+    color: rgba(var(--icon-color-unselected), 1);
     font-family: Icons-Outlined;
     font-size: 18rem;
     line-height: 1;
@@ -596,7 +614,7 @@ label.segment input:not(:checked, [data-icon])+span::after {
 }
 
 label.segment input:checked::after {
-    color: rgba(var(--color-on-secondary-container), 1);
+    color: rgba(var(--icon-color-selected), 1);
     content: "\\e5ca";
 }
 
@@ -606,6 +624,32 @@ label.segment input:checked::after {
 
 .icons-only label.segment input::after {
     width: 18rem;
+}
+
+/* HOVERED */
+label.segment input:not(:disabled):hover::before {
+    background-image: linear-gradient(rgba(var(--label-color-unselected), .08) 0 100%);
+}
+
+label.segment input:checked:not(:disabled):hover::before {
+    background-image: linear-gradient(rgba(var(--label-color-selected), .08) 0 100%);
+}
+
+/* ACTIVE, FOCUS */
+label.segment input:not(:disabled):focus::before,
+label.segment input:not(:disabled):active::before {
+    background-image: linear-gradient(rgba(var(--label-color-unselected), .12) 0 100%);
+}
+
+/* DISABLED */
+label.segment input:disabled::before {
+    background-color: transparent;
+    border-color: rgba(var(--container-disabled), .12);
+}
+
+label.segment input:disabled+span,
+label.segment input:disabled::after {
+    color: rgba(var(--container-disabled), .38);
 }
 `
 

@@ -21,6 +21,22 @@
             font-display: swap;
         }
 
+        @font-face {
+            font-family: "Roboto";
+            font-style: normal;
+            font-weight: 400;
+            src: url("/fonts/roboto-regular-webfont.woff2") format('woff2');
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: "Roboto";
+            font-style: normal;
+            font-weight: 500;
+            src: url("/fonts/roboto-medium-webfont.woff2") format('woff2');
+            font-display: swap;
+        }
+
         .typeface-brand {
             font-family: Roboto;
         }
@@ -96,6 +112,10 @@
         var colors = {
             // backgroundColor: 'green'
         }
+
+        var breakpoints = {
+           // compact: 300
+        }
     </script>
     <script type="module">
         import {
@@ -126,6 +146,7 @@
         } from '/buttons.mjs'
 
         const app = new App({
+            navtype: 'all',
             navitems: [
             ],
             child: new Column({
@@ -457,11 +478,15 @@
                                     }),
                                     new ButtonSegment({
                                         icon: "\ue88b",
-                                        label: 'oder'
+                                        label: 'oder',
+                                        onclick: function(e) {
+                                            console.log(this.checked)
+                                        }
                                     }),
                                     new ButtonSegment({
                                         icon: "\ue88d",
                                         label: 'was',
+                                        checked: 1,
                                         disabled: true
                                     }),
                                 ]
