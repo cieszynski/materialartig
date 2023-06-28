@@ -112,10 +112,6 @@
         var colors = {
             // backgroundColor: 'green'
         }
-
-        var breakpoints = {
-           // compact: 300
-        }
     </script>
     <script type="module">
         import {
@@ -142,12 +138,25 @@
             ElevatedCommonButton,
             /*  */
             SegmentedButton,
-            ButtonSegment
+            ButtonSegment,
+            NavButton
         } from '/buttons.mjs'
 
         const app = new App({
+            breakpoints: {
+               // compact: 300
+            },
             navtype: 'all',
             navitems: [
+                new NavButton({
+                    label: 'home'
+                }),
+                new NavButton({
+                    label: 'home'
+                }),
+                new NavButton({
+                    label: 'home'
+                }),
             ],
             child: new Column({
                 children: [
@@ -159,6 +168,9 @@
                             new IconButton({
                                 label: 'BTN',
                                 icon: "\ue88d",
+                                onclick: function (e) {
+                                    console.log(App.mediaQueries.prefersReducedMotion.matches)
+                                }
                             }),
                             new IconButton({
                                 label: 'BTN',
@@ -190,6 +202,9 @@
                             new OutlinedIconButton({
                                 label: 'BTN',
                                 icon: "\ue88d",
+                                onclick: (e) => {
+                                    app.navtype = App.NAV_TYPE.RAIL
+                                }
                             }),
                             new OutlinedIconButton({
                                 label: 'BTN',
@@ -479,7 +494,7 @@
                                     new ButtonSegment({
                                         icon: "\ue88b",
                                         label: 'oder',
-                                        onclick: function(e) {
+                                        onclick: function (e) {
                                             console.log(this.checked)
                                         }
                                     }),

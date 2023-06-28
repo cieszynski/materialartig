@@ -1,24 +1,5 @@
 /* application.mjs */
 
-export const MEDIAQUERY_COMPACT = `
-    (max-width: ${window?.breakpoints?.compact ?? 600}px) 
-        and (orientation: portrait), 
-    (max-height: ${window?.breakpoints?.compact ?? 600}px) 
-        and (orientation: landscape)`;
-export const MEDIAQUERY_NOT_COMPACT = `
-    (min-width: ${window?.breakpoints?.compact ?? 600}px) 
-        and (orientation: portrait), 
-    (min-height: ${window?.breakpoints?.compact ?? 600}px) 
-        and (orientation: landscape)`;
-export const MEDIAQUERY_MEDIUM = `
-    (min-width: ${window?.breakpoints?.compact ?? 600}px) 
-        and (max-width: ${window?.breakpoints?.expanded ?? 1240}px) 
-        and (orientation: portrait), 
-    (min-height: ${window?.breakpoints?.compact ?? 600}px) 
-        and (max-height: ${window?.breakpoints?.expanded ?? 1240}px) 
-        and (orientation: landscape)`;
-export const MEDIAQUERY_EXPANDED = `(min-width: ${window?.breakpoints?.expanded ?? 1240}px)`;
-
 export const CSS = (strings, ...values) => {
     (new CSSStyleSheet())
         .replace(String.raw({ raw: strings }, ...values))
@@ -127,6 +108,10 @@ body {
     flex-direction: column;
 }
 
+body.notcompact {
+    flex-direction: row-reverse;
+}
+
 main {
     overflow-y: scroll;
     width: 100%;
@@ -138,27 +123,25 @@ nav {
     height: 80rem;
 }
 
-@media ${MEDIAQUERY_NOT_COMPACT} {
-
-    body {
-        flex-direction: row-reverse;
-    }
-
-    nav {
-        height: 100%;
-        width: 80rem;
-    }
-    
+body.notcompact nav {
+    height: 100%;
+    width: 80rem;
 }
 
-@media ${MEDIAQUERY_EXPANDED} {
-    nav {
-        height: 100%;
-        width: 360rem;
-    }
+body.expanded nav {
+    height: 100%;
+    width: 360rem;
 }
 `
 export class App extends Widget {
+
+    static NAV_TYPE = {
+        BAR: 'bar',
+        RAIL: 'rail',
+        DRAWER: 'drawer',
+        FULL: 'full',
+        ALL: 'all'
+    }
 
     constructor(properties) {
         super(properties, {
@@ -171,20 +154,54 @@ export class App extends Widget {
                 <div/>
             </nav>` });
         document.body.replaceWith(this.node);
+
+        App.mediaQueries = {
+            portrait: window.matchMedia("(orientation: portrait)"),
+            landscape: window.matchMedia("(orientation: landscape)"),
+            compact: window.matchMedia(`
+                (max-width: ${properties?.breakpoints?.compact ?? 600}px) 
+                    and (orientation: portrait), 
+                (max-height: ${properties?.breakpoints?.compact ?? 600}px) 
+                    and (orientation: landscape)`),
+            notcompact: window.matchMedia(`
+                (min-width: ${properties?.breakpoints?.compact ?? 600}px) 
+                    and (orientation: portrait), 
+                (min-height: ${properties?.breakpoints?.compact ?? 600}px) 
+                    and (orientation: landscape)`),
+            medium: window.matchMedia(`
+                (min-width: ${properties?.breakpoints?.compact ?? 600}px) 
+                    and (max-width: ${properties?.breakpoints?.expanded ?? 1240}px)`),
+            expanded: window.matchMedia(`(min-width: ${properties?.breakpoints?.expanded ?? 1240}px)`),
+            prefersReducedMotion: window.matchMedia('(prefers-reduced-motion'),
+        }
+
+        Object.entries(App.mediaQueries).forEach(([name, matchMedia]) => {
+            // set onload:
+            this.node.classList.toggle(name, matchMedia.matches);
+
+            // set onchange:
+            matchMedia.addEventListener('change', (e) =>
+                this.node.classList.toggle(name, e.matches)
+            );
+        });
+
     }
 
     set child(elem) {
+        //console.assert
         this.node
             .querySelector('main')
             .replaceChildren(elem.node);
     }
 
     set navtype(str) {
-        console.assert(['navbar', 'rail', 'drawer', 'both', 'all'].includes(str), 'invalid navtype');
-        this.node.className = str;
+        console.assert(Object.values(App.NAV_TYPE).includes(str), 'invalid navtype');
+        this.node.classList.remove(...Object.values(App.NAV_TYPE));
+        this.node.classList.add(str);
     }
 
     set navitems(arr) {
+        //console.assert(arr.every((item) => item instanceof NavButton))
         this.node
             .querySelector('nav>div')
             .replaceChildren(
