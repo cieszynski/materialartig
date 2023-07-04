@@ -52,6 +52,24 @@
             line-height: 20rem;
             letter-spacing: .1rem;
         }
+
+        .typescale-label-medium {
+            font-weight: 500;
+            font-size: 12rem;
+            line-height: 16rem;
+            letter-spacing: .5rem;
+        }
+
+        :root {
+            --typeface-plain: Roboto;
+
+            --typescale-title-small: 500 14rem/20rem var(--typeface-plain);
+            --typescale-title-small-tracking: .1;
+            --typescale-label-large: 500 14rem/20rem var(--typeface-plain);
+            --typescale-label-large-tracking: .1;
+            --typescale-label-medium: 500 12rem/16rem var(--typeface-plain);
+            --typescale-label-medium-tracking: .5;
+        }
     </style>
 
     <style>
@@ -144,18 +162,22 @@
 
         const app = new App({
             breakpoints: {
-               // compact: 300
+                // compact: 300
             },
-            navtype: 'all',
+           // navtype: 'bar',
             navitems: [
                 new NavButton({
-                    label: 'home'
+                    icon: "\ue88d",
+                    label: 'Home',
+                    checked: 1
                 }),
                 new NavButton({
-                    label: 'home'
+                    icon: "\ue88e",
+                    label: 'Info'
                 }),
                 new NavButton({
-                    label: 'home'
+                    icon: "\ue88e",
+                    label: 'Help'
                 }),
             ],
             child: new Column({

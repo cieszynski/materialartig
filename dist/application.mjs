@@ -108,6 +108,7 @@ body {
     flex-direction: column;
 }
 
+body.drawer,
 body.notcompact {
     flex-direction: row-reverse;
 }
@@ -119,27 +120,42 @@ main {
 }
 
 nav {
+    outline: 1px solid blue;
+}
+
+nav div {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden auto;
+    gap: 8rem;
+}
+
+body.compact
+ nav div {
     width: 100%;
-    height: 80rem;
 }
 
-body.notcompact nav {
+body.notcompact
+ nav div {
+    flex-direction: column;
     height: 100%;
-    width: 80rem;
 }
 
-body.expanded nav {
-    height: 100%;
-    width: 360rem;
-}
+body.expanded 
+ nav div {
+    gap: 0;
+ }
 `
 export class App extends Widget {
 
     static NAV_TYPE = {
-        BAR: 'bar',
-        RAIL: 'rail',
-        DRAWER: 'drawer',
-        FULL: 'full',
+        BAR: 'bar',         // Navigationbar only
+        RAIL: 'rail',       // Navigationrail only
+        DRAWER: 'drawer',   // Drawer only
+        FULL: 'full',       // 
         ALL: 'all'
     }
 
@@ -158,20 +174,11 @@ export class App extends Widget {
         App.mediaQueries = {
             portrait: window.matchMedia("(orientation: portrait)"),
             landscape: window.matchMedia("(orientation: landscape)"),
-            compact: window.matchMedia(`
-                (max-width: ${properties?.breakpoints?.compact ?? 600}px) 
-                    and (orientation: portrait), 
-                (max-height: ${properties?.breakpoints?.compact ?? 600}px) 
-                    and (orientation: landscape)`),
-            notcompact: window.matchMedia(`
-                (min-width: ${properties?.breakpoints?.compact ?? 600}px) 
-                    and (orientation: portrait), 
-                (min-height: ${properties?.breakpoints?.compact ?? 600}px) 
-                    and (orientation: landscape)`),
-            medium: window.matchMedia(`
-                (min-width: ${properties?.breakpoints?.compact ?? 600}px) 
-                    and (max-width: ${properties?.breakpoints?.expanded ?? 1240}px)`),
-            expanded: window.matchMedia(`(min-width: ${properties?.breakpoints?.expanded ?? 1240}px)`),
+            compact: window.matchMedia(`(max-width: ${properties?.breakpoints?.compact ?? 600}px)`),
+            notcompact: window.matchMedia(`(min-width: ${properties?.breakpoints?.compact ?? 600}px)`),
+            medium: window.matchMedia(`(min-width: ${properties?.breakpoints?.compact ?? 600}px) 
+                and (max-width: ${properties?.breakpoints?.expanded ?? 1200}px)`),
+            expanded: window.matchMedia(`(min-width: ${properties?.breakpoints?.expanded ?? 1200}px)`),
             prefersReducedMotion: window.matchMedia('(prefers-reduced-motion'),
         }
 
@@ -209,7 +216,6 @@ export class App extends Widget {
             );
     }
 }
-
 
 /*  */
 CSS`
