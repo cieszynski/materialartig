@@ -134,11 +134,20 @@
     <script type="module">
         import {
             App,
-            Element,
+        } from '/application.mjs'
+        import {
+            Screen,
+        } from '/screen.mjs'
+        import {
+            ListDetailLayout
+        } from '/layout.mjs'
+        import {
+            /* App, */
+            /* Element, */
             Column,
             Row,
             Stack
-        } from '/application.mjs'
+        } from '/common.mjs'
         import {
             IconButton,
             IconToggleButton,
@@ -157,14 +166,16 @@
             /*  */
             SegmentedButton,
             ButtonSegment,
+        } from '/button.mjs'
+        import {
             NavButton
-        } from '/buttons.mjs'
+        } from '/navigation.mjs'
 
         const app = new App({
             breakpoints: {
                 // compact: 300
             },
-           // navtype: 'bar',
+           // navtype: 'rail',
             navitems: [
                 new NavButton({
                     icon: "\ue88d",
@@ -191,7 +202,7 @@
                                 label: 'BTN',
                                 icon: "\ue88d",
                                 onclick: function (e) {
-                                    console.log(App.mediaQueries.prefersReducedMotion.matches)
+                                    screen1.show()
                                 }
                             }),
                             new IconButton({
@@ -534,6 +545,12 @@
             })
 
         });
+
+        const screen1 = new Screen({
+            child: new ListDetailLayout({
+                
+            })
+        })
     </script>
 </head>
 
