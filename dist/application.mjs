@@ -1,4 +1,24 @@
-/* application.mjs */
+/* 
+    materialartig
+    
+    JavaScript library for progressive web applications 
+    with a focus on Google's Material Design System v3.
+    
+    Copyright (C) 2023 - present Stephan Cieszynski
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
 import {
     CSS,
     Widget
@@ -99,6 +119,8 @@ export class App extends Widget {
         document.body.replaceWith(this.node);
 
         App.mediaQueries = {
+            book: window.matchMedia("(horizontal-viewport-segments: 2)"),
+            tabletop: window.matchMedia("(vertical-viewport-segments: 2)"),
             portrait: window.matchMedia("(orientation: portrait)"),
             landscape: window.matchMedia("(orientation: landscape)"),
             compact: window.matchMedia(`(max-width: ${properties?.breakpoints?.compact ?? 600}px)`),
