@@ -33,6 +33,8 @@ export const CSS = (strings, ...values) => {
 
 export class Widget {
 
+    static #uid = 0;
+
     constructor(properties, data) {
 
         this.node = Object.assign(
@@ -58,6 +60,8 @@ export class Widget {
     }
 
     set id(str) { this.node.id = str }
+
+    get id() { return (this.node.id) ? this.node.id : this.node.id = `UID${Widget.#uid++}` }
 }
 
 export class Element extends Widget {
@@ -194,4 +198,38 @@ export class Stack extends Widget {
             ...arr.map(elem => elem.node)
         );
     }
+}
+
+/* not required? */
+const safe = (str) => str.replace(/[&<>'"]/g, (tag) => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    "'": '&#39;',
+    '"': '&quot;'
+}[tag]));
+
+CSS`
+h2.headline,
+h3.headline,
+h4.headline {
+    display: block;
+}
+`
+export class Headline extends Widget {
+
+    constructor(properties) {
+
+        super(properties, {
+            nodeName: `h${{
+                    large: 2,
+                    medium: 3,
+                    small: 4,
+                }[properties.role] ?? 2
+                }`,
+            className: 'headline'
+        });
+    }
+
+    set label(str) { this.node.textContent = str; }
 }

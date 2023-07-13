@@ -152,7 +152,8 @@
             /* Element, */
             Column,
             Row,
-            Stack
+            Stack,
+            Headline
         } from '/common.mjs'
         import {
             IconButton,
@@ -181,7 +182,7 @@
             breakpoints: {
                 // compact: 300
             },
-           // navtype: 'rail',
+            // navtype: 'rail',
             navitems: [
                 new NavButton({
                     icon: "\ue88d",
@@ -552,16 +553,47 @@
 
         });
 
-        const templ1 = new ListItemTemplate({});
-        
+        const head1 = new Headline({
+            label: '${title}',
+            role: 'smalls'
+        })
+
         const screen1 = new Screen({
             child: new ListDetailLayout({
-/*                 items: [
-                    new ListItemTemplate({}),
-                    new ListItemTemplate({}),
-                ] */
+                listItems: [
+                    new IconButton({
+                        label: 'BTN',
+                        icon: "\ue88d",
+                        id: 'title1'
+                    }),
+                    new IconButton({
+                        label: 'BTN',
+                        icon: "\ue88d",
+                        id: 'title2'
+                    })
+                ],
+                detailItem: new Column({
+                    padding: 8,
+                    children: [
+                        new Headline({
+                            label: '<a>>',
+                            role: 'smalls'
+                        }),
+                        head1
+                    ]
+                }),
+                onclick: function (e) {
+                    if (!e.target?.firstElementChild?.id) return
+                    //head1.label = e.target?.firstElementChild?.id
+                    //this.detailItem.firstElementChild.textContent = e.target?.firstElementChild?.id
+                                        
+                    const proc = (str, obj) => str.split(/\$\{([^\}]+)\}/g).map(item => obj[item] ?? item).join('');
+
+                    this.detailItem.innerHTML = proc(this.detailItem.innerHTML, {title: 'toast', test: 'milk'})
+                }
             })
         })
+
     </script>
 </head>
 
