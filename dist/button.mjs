@@ -29,6 +29,8 @@ CSS`
 button {
     border: none;
     background: none;
+    /* ensure to be clickable in every layout */
+    pointer-events: all;
 }
 `
 export class Button extends Element {
@@ -50,6 +52,11 @@ export class Button extends Element {
 
 
 CSS`
+label {
+    /* ensure to be clickable in every layout */
+    pointer-events: all;
+}
+
 label input {
     appearance: none;
 }`

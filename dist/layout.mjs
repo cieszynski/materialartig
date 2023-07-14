@@ -73,6 +73,9 @@ section.listdetail article {
     grid-row-end: 3;
     grid-column-start: 1;
     grid-column-end: 3;
+
+    display: none;
+
 }
 
 /* section.listdetail article {
@@ -129,6 +132,12 @@ export class ListDetailLayout extends Layout {
         );
     }
 
+    set items(arr) {
+        this.node.children[1].replaceChildren(
+            ...arr.map(elem => elem.node)
+        );
+    }
+
     set detailItem(elem) { this.node.lastElementChild.replaceChildren(elem.node); }
 
     get detailItem() { return this.node.lastElementChild.firstElementChild; }
@@ -137,15 +146,108 @@ export class ListDetailLayout extends Layout {
 }
 
 
-export class ListItemTemplate extends Template {
+CSS`
+li.listitem {    
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: 1fr auto;
+    background-color: rgba(var(--color-surface), 1);
+    padding: 8rem 24rem 8rem 16rem;
+}
+li.listitem {    
+/*     border-bottom: 16rem solid rgba(var(--color-surface-variant), 1);
+    border-left: 16rem solid black; */
+    border-block-end: 1rem solid black;
+}
+
+li.listitem h2 {
+    font: var(--typescale-body-large);
+    letter-spacing: var(--typescale-body-large-tracking);    
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 2;
+    grid-column-end: 3;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+}
+
+li.listitem p.subtext {
+    font: var(--typescale-body-medium);
+    letter-spacing: var(--typescale-body-medium-tracking);   
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 2;
+    grid-column-end: 3;
+    pointer-events: none;
+}
+
+li.listitem div.leading {    
+    grid-row-start: 1;
+    grid-row-end: 3;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 8rem;
+    pointer-events: none;
+}
+
+li.listitem div.trailing {
+    grid-row-start: 1;
+    grid-row-end: 3;
+    grid-column-start: 3;
+    grid-column-end: 4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 8rem;
+    pointer-events: none;
+}
+`
+export class ListItem extends Widget {
 
     constructor(properties) {
         super(properties, {
-            nodeName: 'template',
+            nodeName: 'li',
             className: 'listitem',
-            innerHTML: `<p>test</p>`
+            innerHTML: '<h2 class="headline"></h2>'
         });
+
+        this.node.onclick = (e) => {
+            this.onclick.call(this, e);
+        }
     }
+
+    set headline(str) { this.node.firstElementChild.textContent = str; }
+
+    /* find or create element and set content */
+    set subtext(str) {
+        const node = (this.node.querySelector('p.subtext')
+            ?? this.node.appendChild(document.createElement('p')));
+        node.className = 'subtext';
+        node.textContent = str;
+    }
+
+    /* find or create element and set content */
+    set leading(elem) {
+        const node = (this.node.querySelector('div.leading')
+            ?? this.node.appendChild(document.createElement('div')));
+        node.className = 'leading';
+        node.replaceChildren(elem.node);
+    }
+
+    /* find or create element and set content */
+    set trailing(elem) {
+        const node = (this.node.querySelector('div.trailing')
+            ?? this.node.appendChild(document.createElement('div')));
+        node.className = 'trailing';
+        node.replaceChildren(elem.node);
+    }
+
+    onclick(e) { console.debug(e) }
 }
 
 CSS``
