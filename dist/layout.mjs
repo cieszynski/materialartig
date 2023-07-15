@@ -113,6 +113,19 @@ export class ListDetailLayout extends Layout {
                 </article>`
         });
 
+        /* TODO */
+        this.node.children[1].ondragenter = (e) => {
+            e.preventDefault();
+        }
+
+        this.node.children[1].ondragover = (e) => {
+            e.preventDefault();
+        }
+
+        this.node.children[1].ondrop = (e) => {
+            console.log(e)
+        }
+
         this.node.children[1].onclick = (e) => {
             this.onclick.call(this, e);
         }
@@ -120,6 +133,12 @@ export class ListDetailLayout extends Layout {
 
     set topappbar(elem) {
 
+    }
+
+    set divider(str) {
+        console.assert(['inset', 'fullwidth', '', false].includes(str));
+        this.node.children[1].classList.toggle('divider-inset', (str === 'inset'))
+        this.node.children[1].classList.toggle('divider-fullwidth', (str === 'fullwidth'))
     }
 
     set listItems(arr) {
@@ -148,19 +167,22 @@ export class ListDetailLayout extends Layout {
 
 CSS`
 li.listitem {    
+    --color-headline: rgba(var(--color-on-surface), 1);
+    --color-subtext: var(--color-on-surface-variant);
+    --color-leading: var(--color-on-surface-variant);
+    --color-trailing: var(--color-on-surface-variant);
     display: grid;
     grid-template-columns: auto 1fr auto;
     grid-template-rows: 1fr auto;
     background-color: rgba(var(--color-surface), 1);
+    background-repeat: no-repeat;
+    background-position-y: bottom;
     padding: 8rem 24rem 8rem 16rem;
-}
-li.listitem {    
-/*     border-bottom: 16rem solid rgba(var(--color-surface-variant), 1);
-    border-left: 16rem solid black; */
-    border-block-end: 1rem solid black;
+    position: relative;
 }
 
 li.listitem h2 {
+    color: var(--color-headline);
     font: var(--typescale-body-large);
     letter-spacing: var(--typescale-body-large-tracking);    
     grid-row-start: 1;
@@ -193,6 +215,7 @@ li.listitem div.leading {
     align-items: center;
     margin-right: 8rem;
     pointer-events: none;
+    color: var(--color-subtext);
 }
 
 li.listitem div.trailing {
@@ -205,6 +228,44 @@ li.listitem div.trailing {
     align-items: center;
     margin-left: 8rem;
     pointer-events: none;
+    color: var(--color-subtext);
+}
+
+/* HOVERED */
+li.listitem[tabindex]:hover {
+    background-image: linear-gradient(rgba(var(--color-on-surface), .08) 0 100%);
+}
+
+/* FOCUS / PRESSED */
+li.listitem[tabindex]:active,
+li.listitem[tabindex]:focus {
+    background-image: linear-gradient(rgba(var(--color-on-surface), .12) 0 100%);
+}
+
+/* DISABLED */
+li.listitem:not([tabindex]) {
+    --color-headline: rgba(var(--color-on-surface), .38);
+    --color-subtext: rgba(var(--color-on-surface), .38);
+    --color-leading: rgba(var(--color-on-surface), .38);
+    --color-trailing: rgba(var(--color-on-surface), .38);
+}
+
+/* DIVIDER, a ListDetailLayout property */
+ul.divider-inset li.listitem::after {
+    position: absolute;
+    width: 100%;
+    height: 1rem;
+    content: "";
+    background-image: linear-gradient(
+        to right, 
+        transparent 0 16rem, 
+        rgba(var(--color-outline-variant), 1) 16rem  calc(100% - 24rem), 
+        transparent calc(100% - 24rem)
+    );
+}
+
+ul.divider-fullwidth li.listitem {    
+    background-image: linear-gradient(to right, rgba(var(--color-outline-variant), 1) 0 100%);
 }
 `
 export class ListItem extends Widget {
@@ -216,10 +277,27 @@ export class ListItem extends Widget {
             innerHTML: '<h2 class="headline"></h2>'
         });
 
+        /*  tabindex=0 ensures a correct tab order if
+            buttons/checkboxes/switches are inside this element */
+        if (!properties.disabled) { this.node.tabIndex = 0; }
+        this.node.draggable = true
+
+        /* ensures keyboard navigation */
+        this.node.onkeydown = (e) => {
+            if (e.keyCode === 13 && (!this.disabled)) { this.onclick.call(this, e); }
+        }
+
         this.node.onclick = (e) => {
-            this.onclick.call(this, e);
+            if (!this.disabled) { this.onclick.call(this, e); }
         }
     }
+
+    set disabled(bool) {
+        if (bool) { this.node.removeAttribute('tabindex'); }
+        else { this.node.tabIndex = 0; }
+    }
+
+    get disabled() { return !this.node.hasAttribute('tabindex'); }
 
     set headline(str) { this.node.firstElementChild.textContent = str; }
 

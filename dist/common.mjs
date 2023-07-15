@@ -62,6 +62,8 @@ export class Widget {
     set id(str) { this.node.id = str }
 
     get id() { return (this.node.id) ? this.node.id : this.node.id = `UID${Widget.#uid++}` }
+
+    set title(str) { this.node.title = str }
 }
 
 export class Element extends Widget {
@@ -222,14 +224,42 @@ export class Headline extends Widget {
 
         super(properties, {
             nodeName: `h${{
-                    large: 2,
-                    medium: 3,
-                    small: 4,
-                }[properties.role] ?? 2
+                large: 2,
+                medium: 3,
+                small: 4,
+            }[properties.role] ?? 2
                 }`,
             className: 'headline'
         });
     }
 
     set label(str) { this.node.textContent = str; }
+}
+
+CSS`
+div.icon {
+    width: 24rem;
+    height: 24rem;
+    pointer-events: none;
+}
+
+div.icon::after {    
+    font-family: Icons-Outlined;
+    content: attr(data-icon);
+    font-weight: 500;
+    font-size: 24rem;
+}
+`
+export class Icon extends Widget {
+
+    constructor(properties) {
+
+        super(properties, {
+            nodeName: 'div',
+            className: 'icon'
+        });
+
+    }
+
+    set icon(str) { this.node.dataset.icon = str; }
 }

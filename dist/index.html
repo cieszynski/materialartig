@@ -113,6 +113,8 @@
             /* OutlinedIconButton */
             --color-outline: var(--color-light-outline, 121, 116, 126);
 
+            --color-outline-variant: var(--color-light-outline-variant, 196, 199, 197);
+
             /* FilledTonalIconButton */
             --color-secondary-container: var(--color-light-secondary-container, 232, 222, 248);
 
@@ -138,6 +140,7 @@
                 --color-on-surface: var(--color-dark-on-surface, 230, 225, 229);
                 --color-on-surface-variant: var(--color-dark-on-surface-variant, 202, 196, 208);
                 --color-outline: var(--color-dark-outline, 147, 143, 153);
+                --color-outline-variant: var(--color-dark-outline-variant, 68, 71, 70);
                 --color-secondary-container: var(--color-dark-secondary-container, 74, 68, 88);
                 --color-shadow: var(--color-light-shadow, 0, 0, 0);
                 --color-surface: var(--color-dark-surface, 28, 27, 31);
@@ -169,7 +172,8 @@
             Column,
             Row,
             Stack,
-            Headline
+            Headline,
+            Icon
         } from '/common.mjs'
         import {
             IconButton,
@@ -573,29 +577,28 @@
             label: '${title}',
             role: 'smalls'
         })
-
+var b;
         const screen1 = new Screen({
-            child: new ListDetailLayout({
-                /*                 listItems: [
-                                    new IconButton({
-                                        label: 'BTN',
-                                        icon: "\ue88d",
-                                        id: 'title1'
-                                    }),
-                                    new IconButton({
-                                        label: 'BTN',
-                                        icon: "\ue88d",
-                                        id: 'title2'
-                                    })
-                                ], */
+            child: b = new ListDetailLayout({
+                id:'toast',
+                divider: 'inset',
                 items: [
                     new ListItem({
                         headline: 'headline1',
                         //subtext: 'subtext1',
-                        leading: new IconButton({
+                        leading: new Icon({
                             label: 'BTN',
-                            icon: "\ue88d",
-                        }),
+                            icon: "\ue88e",
+                        })
+                    }),
+                    new ListItem({
+                        headline: 'headline1',
+                        disabled: true,
+                        //subtext: 'subtext1',
+                        leading: new Icon({
+                            label: 'BTN',
+                            icon: "\ue88e",
+                        })
                     }),
                     new ListItem({
                         headline: 'headline2',
@@ -604,18 +607,24 @@
                             label: 'BTN',
                             icon: "\ue88d",
                         }),
+                        onclick: (e) => {
+                            b.divider = 'inset'
+                        }
                     }),
                     new ListItem({
                         headline: 'headline2',
                         subtext: 'subtext2',
-                        leading: new IconButton({
+                        leading: new Icon({
                             label: 'BTN',
-                            icon: "\ue88d",
+                            icon: "\ue88b",
                         }),
                         trailing: new IconButton({
                             label: 'BTN',
                             icon: "\ue88d",
                         }),
+                        onclick: (e) => {
+                            b.divider = false
+                        }
                     }),
                 ],
                 detailItem: new Column({
