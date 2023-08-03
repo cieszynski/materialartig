@@ -241,6 +241,7 @@ div.icon {
     width: 24rem;
     height: 24rem;
     pointer-events: none;
+    overflow: hidden; /* WICHTIG */
 }
 
 div.icon::after {    

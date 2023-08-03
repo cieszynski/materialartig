@@ -40,12 +40,18 @@ CSS`
 
 *:focus { outline: none; }
 
+a { 
+    text-decoration: none;
+    color: currentColor; 
+}
+
 html {
     font-size: 6.25%;
 }
 
 body, html {
     background-color: rgba(var(--color-surface), 1);
+    overscroll-behavior: none;  /* prevent pull to refresh */
     position: relative;
     overflow: hidden;
     width: 100vw;
@@ -63,16 +69,15 @@ body.notcompact:not(.bar) {
 }
 
 main {
-    overflow-y: scroll;
+    overflow: hidden;
+    display: flex;
+    background: #ddd;
+    /* overflow-y: scroll; */
     width: 100%;
     height: 100%;
 }
 
-nav {
-    outline: 1px solid blue;
-}
-
-nav div {
+nav div { /* TODO */
     position: relative;
     display: flex;
     flex-direction: row;
@@ -137,10 +142,17 @@ export class App extends Widget {
 
             // set onchange:
             matchMedia.addEventListener('change', (e) =>
-                this.node.classList.toggle(name, e.matches)
+                {
+                    this.node.classList.toggle(name, e.matches);
+                    /* document    WICHTIG 
+                        .querySelector(location.hash)
+                        .scrollIntoView();*/
+                }
             );
         });
 
+          
+       /// window.onload = (e) => {/* window.location.replace('#'); */ history.go(-history.length); window.location.hash = '#'}
     }
 
     set child(elem) {
@@ -150,6 +162,17 @@ export class App extends Widget {
             .replaceChildren(elem.node);
     }
 
+    set children(arr) {
+        this.node
+            .querySelector('main')
+            .replaceChildren(
+                ...arr.map((elem, idx) => {
+                    console.log(idx)
+                    return elem.node;
+                })
+            );
+    }
+
     set navtype(str) {
         console.assert(Object.values(App.NAV_TYPE).includes(str), 'invalid navtype');
         this.node.classList.remove(...Object.values(App.NAV_TYPE));
@@ -157,7 +180,7 @@ export class App extends Widget {
     }
 
     set navitems(arr) {
-        console.assert(arr.every((item) => item instanceof NavButton))
+        //console.assert(arr.every((item) => item instanceof NavButton))
         this.node
             .querySelector('nav>div')
             .replaceChildren(

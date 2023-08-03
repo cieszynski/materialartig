@@ -64,7 +64,7 @@
             --typeface-plain: Roboto;
             --typeface-brand: Roboto;
 
-            --typescale-title-large: 400 22rem/28rem var(--typeface-brand);
+            --typescale-title-large: 400 22rem/25rem var(--typeface-brand);
             --typescale-title-large-tracking: 0;
 
             --typescale-title-medium: 500 16rem/24rem var(--typeface-plain);
@@ -163,7 +163,7 @@
             Screen,
         } from '/screen.mjs'
         import {
-            ListDetailLayout,
+            /* ListDetailLayout, */
             ListItem,
         } from '/layout.mjs'
         import {
@@ -198,456 +198,202 @@
             NavButton
         } from '/navigation.mjs'
 
+    </script>
+    <script type="module">
+        import {
+            App,
+        } from '/application.mjs';
+        import {
+            CSS,
+            Widget,
+            Headline,
+            Icon
+        } from '/common.mjs'
+        import {
+            ListDetailLayout,
+            ListItem,
+        } from '/layout.mjs'
+
+        CSS`
+        a.navigationitem {
+            color: rgba(var(--color-on-surface-variant), 1);
+            font: var(--typescale-label-medium);
+            letter-spacing: var(--typescale-label-medium-tracking);
+            display: block;
+            position: relative;
+            height: 80rem;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        a.navigationitem::before {
+            font-family: Icons-Outlined;
+            font-size: 24rem;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 12rem auto 4rem auto;
+            border-radius: 16rem;
+            width: 64rem;
+            height: 32rem;
+            content: attr(data-icon);
+        }
+        
+        a.navigationitem.selected::before {
+            font-family: Icons;
+            background-color: #888;
+        }
+        a.navigationitem:active,
+        a.navigationitem:focus {
+        outline: 1px solid red;
+            background-color: none;
+        }
+
+        body.rail
+          a.navigationitem,
+        body.medium:not(.bar)
+          a.navigationitem {
+            width: 80rem;
+            height: 56rem;
+        }
+
+        body.expanded:not(.bar, .rail)
+          a.navigationitem {
+            width: 360rem;
+            height: 56rem;
+        }
+        `
+        class NavigationItem extends Widget {
+
+            static #num = 0;
+
+            constructor(properties) {
+                super(properties, {
+                    nodeName: 'a',
+                    /* on begin select the 1st item */
+                    className: `navigationitem ${(location.hash.length > 1 && location.hash.endsWith(properties.href)) ? 'selected' : !NavigationItem.#num++ ? 'selected' : ''}`
+                });
+
+                /*                 console.log(location.hash.length>1, location.hash, properties.href)
+                                const selected = (e) => {
+                                    this.onCommand.call(this, e);
+                                    for (const child of this.node.parentNode.children) {
+                                        if (child.classList.contains('navigationitem')) {
+                                            child.classList.toggle('selected', (child === this.node));
+                                        }
+                                    }
+                                }
+                
+                                this.node.onkeydown = (e) => {
+                                    if (e.keyCode === 13) {
+                                        selected(e);
+                                    }
+                                }
+                
+                                this.node.onclick = (e) => {
+                                    selected(e);
+                                } */
+            }
+
+            set label(str) { this.node.textContent = str; }
+
+            set icon(str) { this.node.dataset.icon = str; }
+
+            set href(str) { this.node.href = '#'.concat(str).replace(/#+/, '#'); }
+
+            onCommand(e) { console.debug(e); }
+        }
+
+
+        CSS`
+        section.flexlayout {
+            outline: 2px solid yellow;
+            background: #ffaa00ff;
+            visibility: hidden;
+        }
+        section.flexlayout:target {
+            visibility: visible;
+        }
+        `
+        class FlexLayout extends Widget {
+
+            constructor(properties) {
+                super(properties, {
+                    nodeName: 'section',
+                    className: 'layout flexlayout',
+                    innerHTML: `
+                        <header>
+                            <h2>headline</h2>
+                        </header>`
+                });
+            }
+
+            set title(str) { this.node.querySelector('h2').textContent = str; }
+        }
+
+
         const app = new App({
-            breakpoints: {
-                // compact: 300
-            },
-            // navtype: 'rail',
             navitems: [
-                new NavButton({
+                new NavigationItem({
                     icon: "\ue88d",
                     label: 'Home',
-                    checked: 1
+                    href: '#a'
                 }),
-                new NavButton({
+                new NavigationItem({
                     icon: "\ue88e",
-                    label: 'Info'
+                    label: 'Info',
+                    href: 'b'
                 }),
-                new NavButton({
-                    icon: "\ue88e",
-                    label: 'Help'
-                }),
+                new NavigationItem({
+                    icon: "\ue88a",
+                    label: 'Help',
+                    href: 'c'
+                })
             ],
-            child: new Column({
-                children: [
-                    new Row({
-                        gap: 8,
-                        padding: 8,
-                        align: 'end',
-                        children: [
-                            new IconButton({
-                                label: 'BTN',
-                                icon: "\ue88d",
-                                onclick: function (e) {
-                                    screen1.show()
-                                }
-                            }),
-                            new IconButton({
-                                label: 'BTN',
-                                icon: "\ue88d",
-                                disabled: 1,
-                            }),
-                            new IconToggleButton({
-                                label: 'BTN',
-                                icon: "\ue88d",
-                            }),
-                            new IconToggleButton({
-                                label: 'BTN',
-                                disabled: 1,
-                                icon: "\ue88d",
-                            }),
-                            new IconToggleButton({
-                                label: 'BTN',
-                                disabled: 1,
-                                checked: 1,
-                                icon: "\ue88d",
-                            }),
-                        ]
-                    }),
-                    new Row({
-                        gap: 8,
-                        padding: 8,
-                        align: 'center',
-                        children: [
-                            new OutlinedIconButton({
-                                label: 'BTN',
-                                icon: "\ue88d",
-                                onclick: (e) => {
-                                    app.navtype = App.NAV_TYPE.RAIL
-                                }
-                            }),
-                            new OutlinedIconButton({
-                                label: 'BTN',
-                                disabled: 1,
-                                icon: "\ue88e",
-                            }),
-                            new OutlinedIconToggleButton({
-                                label: 'BTN',
-                                icon: "\ue88d",
-                            }),
-                            new OutlinedIconToggleButton({
-                                label: 'BTN',
-                                disabled: 1,
-                                icon: "\ue88e",
-                            }),
-                            new OutlinedIconToggleButton({
-                                label: 'BTN',
-                                disabled: 1,
-                                checked: true,
-                                icon: "\ue88e",
-                            }),
-                        ]
-                    }),
-                    new Row({
-                        gap: 8,
-                        padding: 8,
-                        children: [
-                            new FilledTonalIconButton({
-                                label: 'BTN',
-                                icon: "\ue88d",
-                            }),
-                            new FilledTonalIconButton({
-                                label: 'BTN',
-                                disabled: 1,
-                                icon: "\ue88e",
-                            }),
-                            new FilledTonalIconToggleButton({
-                                label: 'BTN',
-                                icon: "\ue88d",
-                            }),
-                            new FilledTonalIconToggleButton({
-                                label: 'BTN',
-                                disabled: 1,
-                                icon: "\ue88e",
-                            }),
-                            new FilledTonalIconToggleButton({
-                                label: 'BTN',
-                                disabled: 1,
-                                checked: 1,
-                                icon: "\ue88e",
-                            }),
-                        ]
-                    }),
-                    new Row({
-                        gap: 8,
-                        padding: 8,
-                        children: [
-                            new FilledIconButton({
-                                label: 'BTN',
-                                icon: "\ue88d",
-                            }),
-                            new FilledIconButton({
-                                label: 'BTN',
-                                disabled: 1,
-                                icon: "\ue88e",
-                            }),
-                            new FilledIconToggleButton({
-                                label: 'BTN',
-                                icon: "\ue88d",
-                            }),
-                            new FilledIconToggleButton({
-                                label: 'BTN',
-                                disabled: 1,
-                                icon: "\ue88d",
-                            }),
-                            new FilledIconToggleButton({
-                                label: 'BTN',
-                                disabled: 1,
-                                checked: 1,
-                                icon: "\ue88e",
-                            }),
-                        ]
-                    }),
-                    new Column({
-                        gap: 8,
-                        padding: 8,
-                        children: [
-                            new TextCommonButton({
-                                label: 'Textbutton'
-                            }),
-                            new TextCommonButton({
-                                label: 'Textbutton',
-                                disabled: 1,
-                            }),
-                            new TextCommonButton({
-                                label: 'Textbutton Icon',
-                                icon: "\ue88d",
-                            }),
-                            new TextCommonButton({
-                                label: 'Textbutton Icon',
-                                icon: "\ue88d",
-                                disabled: 1,
-                            }),
-                            new TextCommonButton({
-                                label: 'Textbutton Icon',
-                                icon: "\ue88d",
-                                responsive: 1
-                            }),
-                        ]
-                    }),
-                    new Column({
-                        gap: 8,
-                        padding: 8,
-                        children: [
-                            new OutlinedCommonButton({
-                                label: 'OutlinedCommonButton'
-                            }),
-                            new OutlinedCommonButton({
-                                label: 'OutlinedCommonButton',
-                                disabled: 1,
-                            }),
-                            new OutlinedCommonButton({
-                                label: 'OutlinedCommonButton Icon',
-                                icon: "\ue88d",
-                            }),
-                            new OutlinedCommonButton({
-                                label: 'OutlinedCommonButton Icon',
-                                icon: "\ue88d",
-                                disabled: 1,
-                            }),
-                            new OutlinedCommonButton({
-                                label: 'OutlinedCommonButton Icon',
-                                icon: "\ue88d",
-                                responsive: 1
-                            }),
-                        ]
-                    }),
-                    new Column({
-                        gap: 8,
-                        padding: 8,
-                        children: [
-                            new FilledTonalCommonButton({
-                                label: 'FilledTonalCommonButton'
-                            }),
-                            new FilledTonalCommonButton({
-                                label: 'FilledTonalCommonButton',
-                                disabled: 1,
-                            }),
-                            new FilledTonalCommonButton({
-                                label: 'FilledTonalCommonButton Icon',
-                                icon: "\ue88d",
-                            }),
-                            new FilledTonalCommonButton({
-                                label: 'FilledTonalCommonButton Icon',
-                                icon: "\ue88d",
-                                disabled: 1,
-                            }),
-                            new FilledTonalCommonButton({
-                                label: 'FilledTonalCommonButton Icon',
-                                icon: "\ue88d",
-                                responsive: 1
-                            }),
-                        ]
-                    }),
-                    new Column({
-                        gap: 8,
-                        padding: 8,
-                        children: [
-                            new FilledCommonButton({
-                                label: 'FilledCommonButton'
-                            }),
-                            new FilledCommonButton({
-                                label: 'FilledCommonButton',
-                                disabled: 1,
-                            }),
-                            new FilledCommonButton({
-                                label: 'FilledCommonButton Icon',
-                                icon: "\ue88d",
-                            }),
-                            new FilledCommonButton({
-                                label: 'FilledCommonButton Icon',
-                                icon: "\ue88d",
-                                disabled: 1,
-                            }),
-                            new FilledCommonButton({
-                                label: 'FilledCommonButton Icon',
-                                icon: "\ue88d",
-                                responsive: 1
-                            }),
-                        ]
-                    }),
-                    new Column({
-                        gap: 8,
-                        padding: 8,
-                        children: [
-                            new ElevatedCommonButton({
-                                label: 'ElevatedCommonButton'
-                            }),
-                            new ElevatedCommonButton({
-                                label: 'ElevatedCommonButton',
-                                disabled: 1,
-                            }),
-                            new ElevatedCommonButton({
-                                label: 'ElevatedCommonButton Icon',
-                                icon: "\ue88d",
-                            }),
-                            new ElevatedCommonButton({
-                                label: 'ElevatedCommonButton Icon',
-                                icon: "\ue88d",
-                                disabled: 1,
-                            }),
-                            new ElevatedCommonButton({
-                                label: 'ElevatedCommonButton Icon',
-                                icon: "\ue88d",
-                                responsive: 1
-                            }),
-                        ]
-                    }),
-                    new Column({
-                        gap: 8,
-                        padding: 8,
-                        align: 'center',
-                        children: [
-                            new SegmentedButton({
-                                label: 'Test',
-                                density: 3,
-                                segments: [
-                                    new ButtonSegment({
-                                        label: 'alless'
-                                    }),
-                                    new ButtonSegment({
-                                        label: 'oder'
-                                    }),
-                                    new ButtonSegment({
-                                        label: 'was',
-                                        disabled: 0
-                                    })
-                                ]
-                            }),
-                            new SegmentedButton({
-                                density: 2,
-                                label: 'Test',
-                                segments: [
-                                    new ButtonSegment({
-                                        icon: "\ue88a",
-                                        label: 'alles'
-                                    }),
-                                    new ButtonSegment({
-                                        icon: "\ue88b",
-                                        label: 'oder'
-                                    }),
-                                    new ButtonSegment({
-                                        icon: "\ue88d",
-                                        label: 'was',
-                                        disabled: true
-                                    }),
-                                ]
-                            }),
-                            new SegmentedButton({
-                                label: 'Test',
-                                iconsOnly: 1,
-                                segments: [
-                                    new ButtonSegment({
-                                        icon: "\ue88a",
-                                        label: 'alles'
-                                    }),
-                                    new ButtonSegment({
-                                        icon: "\ue88b",
-                                        label: 'oder'
-                                    }),
-                                    new ButtonSegment({
-                                        icon: "\ue88d",
-                                        label: 'was',
-                                        disabled: true
-                                    }),
-                                ]
-                            }),
-                            new SegmentedButton({
-                                density: 3,
-                                label: 'Test',
-                                multiSelection: 1,
-                                segments: [
-                                    new ButtonSegment({
-                                        icon: "\ue88a",
-                                        label: 'alles'
-                                    }),
-                                    new ButtonSegment({
-                                        icon: "\ue88b",
-                                        label: 'oder',
-                                        onclick: function (e) {
-                                            console.log(this.checked)
-                                        }
-                                    }),
-                                    new ButtonSegment({
-                                        icon: "\ue88d",
-                                        label: 'was',
-                                        checked: 1,
-                                        disabled: true
-                                    }),
-                                ]
-                            }),
-                        ]
-                    })
-                ]
-            })
-
-        });
-
-        const head1 = new Headline({
-            label: '${title}',
-            role: 'smalls'
-        })
-var b;
-        const screen1 = new Screen({
-            child: b = new ListDetailLayout({
-                id:'toast',
-                divider: 'inset',
-                items: [
-                    new ListItem({
-                        headline: 'headline1',
-                        //subtext: 'subtext1',
-                        leading: new Icon({
-                            label: 'BTN',
-                            icon: "\ue88e",
-                        })
-                    }),
-                    new ListItem({
-                        headline: 'headline1',
-                        disabled: true,
-                        //subtext: 'subtext1',
-                        leading: new Icon({
-                            label: 'BTN',
-                            icon: "\ue88e",
-                        })
-                    }),
-                    new ListItem({
-                        headline: 'headline2',
-                        subtext: 'subtext2 subtext2 subtext2 subtext2 subtext2',
-                        trailing: new IconButton({
-                            label: 'BTN',
-                            icon: "\ue88d",
-                        }),
-                        onclick: (e) => {
-                            b.divider = 'inset'
-                        }
-                    }),
-                    new ListItem({
-                        headline: 'headline2',
-                        subtext: 'subtext2',
-                        leading: new Icon({
-                            label: 'BTN',
-                            icon: "\ue88b",
-                        }),
-                        trailing: new IconButton({
-                            label: 'BTN',
-                            icon: "\ue88d",
-                        }),
-                        onclick: (e) => {
-                            b.divider = false
-                        }
-                    }),
-                ],
-                detailItem: new Column({
-                    padding: 8,
-                    children: [
-                        new Headline({
-                            label: '<a>>',
-                            role: 'smalls'
-                        }),
-                        head1
+            children: [
+                new ListDetailLayout({
+                    divider: 'fullwidth',
+                    title: 'AAAA',
+                    id: 'a',
+                    items: [
+                        new ListItem({ headline: 'aaa', target: 'aaa', subtext: "subtext", leading: new Icon({ icon: "\ue88a" }), trailing: new Icon({ icon: "\ue88a" }) }),
+                        new ListItem({ headline: 'bbb', target: 'bbb', subtext: "subtext" }),
+                        new ListItem({ headline: 'ccc', target: 'ccc', subtext: "subtext" }),
+                        new ListItem({ headline: 'ccc', target: 'ccc', subtext: "subtext" }),
+                        new ListItem({ headline: 'ccc', target: 'ccc', subtext: "subtext" }),
+                        new ListItem({ headline: 'ccc', target: 'ccc', subtext: "subtext" }),
+                        new ListItem({ headline: 'ccc', target: 'ccc', subtext: "subtext" }),
+                        new ListItem({ headline: 'ccc', target: 'ccc', subtext: "subtext" }),
+                        new ListItem({ headline: 'ccc', target: 'ccc', subtext: "subtext" }),
+                        new ListItem({ headline: 'ccc', target: 'ccc', subtext: "subtext" }),
+                        new ListItem({ headline: 'ccc', target: 'ccc', subtext: "subtext" }),
+                        new ListItem({ headline: 'ccc', target: 'ccc', subtext: "subtext" }),
+                        new ListItem({ headline: 'ccc', target: 'ccc', subtext: "subtext" }),
+                        new ListItem({ headline: 'ccc', target: 'ccc', subtext: "subtext" }),
+                    ],
+                    details: [
+                        new FlexLayout({ title: 'H1', id: 'aaa' }),
+                        new FlexLayout({ title: 'H2', id: 'bbb' }),
+                        new FlexLayout({ title: 'H3', id: 'ccc' })
                     ]
                 }),
-                onclick: function (e) {
-                    if (!e.target?.firstElementChild?.id) return
-                    //head1.label = e.target?.firstElementChild?.id
-                    //this.detailItem.firstElementChild.textContent = e.target?.firstElementChild?.id
-
-                    const proc = (str, obj) => str.split(/\$\{([^\}]+)\}/g).map(item => obj[item] ?? item).join('');
-
-                    this.detailItem.innerHTML = proc(this.detailItem.innerHTML, { title: 'toast', test: 'milk' })
-                }
-            })
+                new ListDetailLayout({
+                    title: 'BBBB',
+                    id: 'b'
+                }),
+                new ListDetailLayout({
+                    title: 'CCCC',
+                    id: 'c'
+                })
+            ]
         })
+
+        /*         addEventListener("hashchange", (e) => {
+                    document
+                        .querySelector(new URL(e.newURL).hash)
+                        .scrollIntoView();
+                }); */
 
     </script>
 </head>
