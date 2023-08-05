@@ -1,0 +1,37 @@
+:root {
+    --color-primary: var(--color-light-primary, 103, 80, 164);
+    --color-primary-container: var(--color-light-primary-container, 234, 221, 255);
+    --color-secondary: var(--color-light-secondary, 98, 91, 113);
+    --color-secondary-container: var(--color-light-secondary-container, 232, 222, 248);
+    --color-tertiary: var(--color-light-tertiary, 125, 82, 96);
+    --color-tertiary-container: var(--color-light-tertiary-container, 255, 216, 228);
+    --color-surface: var(--color-light-surface, 255, 251, 254);
+    --color-surface-variant: var(--color-light-surface-variant, 231,224,236);
+    --color-surface-container-lowest: var(--color-light-surface-container-lowest, 255, 255, 255);
+    --color-surface-container-low: var(--color-light-surface-container-low, 247, 242, 247);
+    --color-surface-container: var(--color-light-surface-container, 241, 236, 241);
+    --color-surface-container-high: var(--color-light-surface-container-high, 236, 231, 235);
+    --color-surface-container-highest: var(--color-light-surface-container-highest, 230, 225, 229);
+    --color-background: var(--color-light-background, 255, 251, 254);
+    --color-error: var(--color-light-error, 179, 38, 30);
+    --color-error-container: var(--color-light-error-container, 249, 222, 220);
+    --color-on-primary: var(--color-light-on-primary, 255, 255, 255);
+    --color-on-primary-container: var(--color-light-on-primary-container, 33, 0, 94);
+    --color-on-secondary: var(--color-light-on-secondary, 255, 255, 255);
+    --color-on-secondary-container: var(--color-light-on-secondary-container, 30, 25, 43);
+    --color-on-tertiary: var(--color-light-on-tertiary, 255, 255, 255);
+    --color-on-tertiary-container: var(--color-light-on-tertiary-container, 55, 11, 30);
+    --color-on-surface: var(--color-light-on-surface, 28, 27, 31);
+    --color-on-surface-variant: var(--color-light-on-surface-variant, 73, 69, 78);
+    --color-on-inverse-surface: var(--color-light-on-inverse-surface, 244, 239, 244);
+    --color-on-error: var(--color-light-on-error, 255, 255, 255);
+    --color-on-error-container: var(--color-light-on-error-container, 65, 14, 11);
+    --color-on-background: var(--color-light-on-background, 28, 27, 31);
+    --color-outline: var(--color-light-outline, 121, 116, 126);
+    --color-outline-variant: var(--color-light-outline-variant, 196, 199, 197);
+    --color-shadow: var(--color-light-shadow, 0, 0, 0);
+    --color-surface-tint: var(--color-light-surface-tint, 103, 80, 164);
+    --color-inverse-surface: var(--color-light-inverse-surface, 49, 48, 51);
+    --color-inverse-primary: var(--color-light-inverse-primary, 208, 188, 255);
+    --color-scrim: var(--color-light-scrim, 0, 0, 0);
+}

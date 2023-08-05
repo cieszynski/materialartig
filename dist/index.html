@@ -5,7 +5,15 @@
     <title>materialartig</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <link rel="preload" href="/fonts/materialiconsoutlined-regular-webfont.woff2" as="font" type="font/woff2"
+        crossorigin>
+    <link rel="preload" href="/fonts/materialicons-regular-webfont.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/roboto-medium-webfont.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/roboto-regular-webfont.woff2" as="font" type="font/woff2" crossorigin>
+    <link href="color-light.css" rel="stylesheet" as="style" type="text/css"
+        media="screen and (prefers-color-scheme: light)">
+    <link href="color-dark.css" rel="stylesheet" as="style" type="text/css"
+        media="screen and (prefers-color-scheme: dark)">
     <style>
         @font-face {
             font-family: "Icons";
@@ -87,69 +95,6 @@
         }
     </style>
 
-    <style>
-        :root {
-            /* IconButton,FilledIconButton,TextCommonButton,OutlinedCommonButton */
-            --color-primary: var(--color-light-primary, 103, 80, 164);
-
-            /* OutlinedIconToggleButton */
-            --color-inverse-surface: var(--color-light-inverse-surface, 49, 48, 51);
-
-            /* OutlinedIconToggleButton */
-            --color-on-inverse-surface: var(--color-light-on-inverse-surface, 244, 239, 244);
-
-            /* FilledIconButton, FilledIconToggleButton, FilledTonalIconButton, FilledTonalIconToggleButton */
-            --color-on-primary: var(--color-light-on-primary, 255, 255, 255);
-
-            /* FilledTonalIconButton, FilledTonalIconToggleButton */
-            --color-on-secondary-container: var(--color-light-on-secondary-container, 30, 25, 43);
-
-            /* IconButton */
-            --color-on-surface: var(--color-light-on-surface, 28, 27, 31);
-
-            /* IconButton, OutlinedIconButton */
-            --color-on-surface-variant: var(--color-light-on-surface-variant, 73, 69, 78);
-
-            /* OutlinedIconButton */
-            --color-outline: var(--color-light-outline, 121, 116, 126);
-
-            --color-outline-variant: var(--color-light-outline-variant, 196, 199, 197);
-
-            /* FilledTonalIconButton */
-            --color-secondary-container: var(--color-light-secondary-container, 232, 222, 248);
-
-            --color-shadow: var(--color-light-shadow, 0, 0, 0);
-
-            --color-surface: var(--color-light-surface, 255, 251, 254);
-
-            /* ElevatedCommonButton */
-            --color-surface-container-low: var(--color-light-surface-container-low, 247, 242, 247);
-            /*  */
-            --color-surface-container-highest: var(--color-light-surface-container-highest, 230, 225, 229);
-
-            --color-surface-variant: var(--color-light-surface-variant, 231, 224, 236);
-        }
-
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --color-primary: var(--color-dark-primary, 208, 188, 255);
-                --color-inverse-surface: var(--color-dark-inverse-surface, 230, 225, 229);
-                --color-on-inverse-surface: var(--color-dark-on-inverse-surface, 49, 48, 51);
-                --color-on-primary: var(--color-dark-on-primary, 55, 30, 115);
-                --color-on-secondary-container: var(--color-dark-on-secondary-container, 232, 222, 248);
-                --color-on-surface: var(--color-dark-on-surface, 230, 225, 229);
-                --color-on-surface-variant: var(--color-dark-on-surface-variant, 202, 196, 208);
-                --color-outline: var(--color-dark-outline, 147, 143, 153);
-                --color-outline-variant: var(--color-dark-outline-variant, 68, 71, 70);
-                --color-secondary-container: var(--color-dark-secondary-container, 74, 68, 88);
-                --color-shadow: var(--color-light-shadow, 0, 0, 0);
-                --color-surface: var(--color-dark-surface, 28, 27, 31);
-                --color-surface-container-low: var(--color-dark-surface-container-low, 28, 27, 30);
-                --color-surface-container-highest: var(--color-dark-surface-container-highest, 73, 69, 79);
-                --color-surface-variant: var(--color-dark-surface-variant, 73, 69, 79);
-            }
-        }
-    </style>
     <script>
         var colors = {
             // backgroundColor: 'green'
@@ -211,7 +156,9 @@
         } from '/common.mjs'
         import {
             ListDetailLayout,
+            ListLayout,
             ListItem,
+            SwitchItem,
         } from '/layout.mjs'
 
         CSS`
@@ -333,6 +280,16 @@
         }
 
 
+        const switc = new SwitchItem({
+            label: 'Switch 1',
+            sublabel: 'sublabel 1',
+            checked: true,
+            icon: {
+                checked: "\ue876",
+                //unchecked: "\ue5cd"
+            },
+        })
+
         const app = new App({
             navitems: [
                 new NavigationItem({
@@ -352,12 +309,65 @@
                 })
             ],
             children: [
-                new ListDetailLayout({
+                new ListLayout({
                     divider: 'fullwidth',
+                    title: 'BBBB',
+                    id: 'b',
+                    items: [
+                        new ListItem({ onclick: (e) => { e.preventDefault(); }, headline: 'aaa', target: 'aaa', subtext: "subtext", subtext2: "subtext2", leading: new Icon({ icon: "\ue88a" }), trailing: new Icon({ icon: "\ue88a" }) }),
+                        new ListItem({ onclick: (e) => { e.preventDefault(); }, headline: 'aaa', target: 'aaa', subtext: "subtext", leading: new Icon({ icon: "\ue88a" }), trailing: new Icon({ icon: "\ue88a" }) }),
+                        new SwitchItem({
+                            label: 'Switch 1',
+                            sublabel: 'sublabel 1',
+                            icon: {
+                                checked: "\ue876",
+                                unchecked: "\ue5cd"
+                            },
+                            //onclick: (e)=>{e.preventDefault()}
+
+                        }),
+                        new SwitchItem({
+                            // label: 'Switch 1',
+                            sublabel: 'sublabel 1',
+                            disabled: true,
+                            icon: {
+                                checked: "\ue876",
+                                //unchecked: "\ue5cd"
+                            },
+                            //onclick: (e)=>{e.preventDefault()}
+
+                        }),
+                        new SwitchItem({
+                            label: 'Switch 1',
+                            //   sublabel: 'sublabel 1',
+                            disabled: true,
+                            checked: true,
+                            icon: {
+                                checked: "\ue876",
+                                //unchecked: "\ue5cd"
+                            },
+                            //onclick: (e)=>{e.preventDefault()}
+
+                        }),
+                        new SwitchItem({
+                            label: 'Switch 1',
+                            sublabel: 'sublabel 1',
+                            checked: true,
+                            icon: {
+                                checked: "\ue876",
+                                //unchecked: "\ue5cd"
+                            },
+                            //onclick: (e)=>{e.preventDefault()}
+
+                        }),
+                        switc
+                    ]
+                }), new ListDetailLayout({
+                    divider: 'inset',
                     title: 'AAAA',
                     id: 'a',
                     items: [
-                        new ListItem({ headline: 'aaa', target: 'aaa', subtext: "subtext", leading: new Icon({ icon: "\ue88a" }), trailing: new Icon({ icon: "\ue88a" }) }),
+                        new ListItem({ headline: 'aaa', target: 'aaa', subtext: "subtext", subtext2: "subtext2", leading: new Icon({ icon: "\ue88a" }), trailing: new Icon({ icon: "\ue88a" }) }),
                         new ListItem({ headline: 'bbb', target: 'bbb', subtext: "subtext" }),
                         new ListItem({ headline: 'ccc', target: 'ccc', subtext: "subtext" }),
                         new ListItem({ headline: 'ccc', target: 'ccc', subtext: "subtext" }),
@@ -379,16 +389,14 @@
                     ]
                 }),
                 new ListDetailLayout({
-                    title: 'BBBB',
-                    id: 'b'
-                }),
-                new ListDetailLayout({
                     title: 'CCCC',
                     id: 'c'
                 })
             ]
         })
 
+       // switc.label = "ABC"
+       //alert(switc.node.firstElementChild.childNodes[1])
         /*         addEventListener("hashchange", (e) => {
                     document
                         .querySelector(new URL(e.newURL).hash)
