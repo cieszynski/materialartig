@@ -451,6 +451,131 @@ export class ListItem extends Widget {
 }
 
 CSS`
+li.item.toggle label {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    padding: 8rem 16rem 8rem 8rem;  
+    background-color: rgba(var(--color-surface), 1);
+}
+
+li.item.toggle.left label {
+    grid-template-columns: auto 1fr;
+}
+
+li.item.toggle>label>input {
+    pointer-events: none; /* prevent an error in chrome */
+    position: relative;
+    grid-row: span 2;
+    grid-column-start: 2;
+}
+li.item.toggle.left>label>input {
+    grid-column-start: 1;
+}
+
+/* STATELAYER */
+li.item.toggle>label>input::before {
+    content: "";
+    display: block;
+    width: 40rem;
+    height: 40rem;
+    border-radius: 20rem;
+    position: relative;
+}
+
+li.item.toggle>label>input::after {
+    color: rgba(var(--color-on-surface-variant), 1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 40rem;
+    height: 40rem;
+    top: 0;
+    left: 0;
+    font-family: Icons;
+    font-weight: 700;
+    font-size: 22rem;
+    width: 40rem;
+    height: 40rem;
+}
+
+li.item.toggle>label>input:checked::after {
+    color: rgba(var(--color-primary), 1);
+}
+
+li.item.toggle>label>input:intermediate::after {
+    color: rgba(var(--color-primary), 1);
+}
+
+li.item.toggle label span {
+    font: var(--typescale-body-large);
+    letter-spacing: var(--typescale-body-large-tracking);
+    color: rgba(var(--color-on-surface), 1);
+    padding: 0 8rem;
+    grid-row: 1 / 2;
+}
+
+li.item.toggle.left label span {
+    grid-column-start: 2;
+}
+
+li.item.toggle label small {
+    font: var(--typescale-body-medium);
+    letter-spacing: var(--typescale-body-medium-tracking); 
+    color: rgba(var(--color-on-surface-variant), 1);  
+    padding: 0 8rem;
+    grid-row: 2 / 3;
+}
+
+li.item.toggle.left label small {
+    grid-column-start: 2;
+}
+
+li.item.toggle label input+small,
+li.item.toggle label span:last-child {      
+    grid-row: 1 / 3;
+}
+`
+class ToggleItem extends Item {
+
+    constructor(properties) {
+        super(properties, {
+            nodeName: 'li',
+            className: 'item toggle',
+            innerHTML: `
+                <label>
+                    <input type="checkbox"/>
+                </label>`
+        });
+
+        this.node.addEventListener('change', (e) => {
+            this.onclick.call(this, e);
+        })
+    }
+
+    set label(str) {
+        const node = (this.node.querySelector('span')
+            ?? this.node.firstElementChild.appendChild(document.createElement('span')));
+        node.textContent = str;
+    }
+
+    set sublabel(str) {
+        const node = (this.node.querySelector('small')
+            ?? this.node.firstElementChild.appendChild(document.createElement('small')));
+        node.textContent = str;
+    }
+
+    set checked(bool) { this.node.querySelector('input').checked = bool; }
+    get checked() { return this.node.querySelector('input').checked; }
+
+    set disabled(bool) { this.node.querySelector('input').disabled = bool; }
+    get disabled() { return this.node.querySelector('input').disabled; }
+
+    set alignedLeft(bool) { this.node.classList.toggle('left', bool); }
+}
+
+CSS`
 li.item.switch {
 }
 
@@ -462,10 +587,8 @@ li.item.switch label {
 }
 
 li.item.switch label input.switch {
+    pointer-events: none; /* prevent an error in chrome */
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     grid-row: span 2;
     grid-column-start: 2;
     grid-column-end: 3;
@@ -492,11 +615,11 @@ li.item.switch label input.switch:checked {
 
 li.item.switch label input.switch::after {
     font-family: Icons;
-    font-weight: 900;
-    font-size: 16rem;
+    font-weight: 600;
+    font-size: 15rem;
     content: attr(data-icon-unchecked);
     color: rgba(var(--color-surface-container-highest), 1); /* ICON, Color (unselected) */
-    display: flex;
+    display: inline-flex;
     justify-content: center;
     align-items: center;
     position: absolute;
@@ -513,7 +636,7 @@ li.item.switch label input.switch::after {
     transform-origin: center;
     transform: translate3d(0, 0, 0);
     transition: 
-        content 0s .15s,
+        content 0s 15s,
         color 0s .15s,
         background-color 0s .15s,
         transform .15s .15s,
@@ -567,15 +690,12 @@ li.item.switch label span {
     font: var(--typescale-body-large);
     letter-spacing: var(--typescale-body-large-tracking);   
     grid-row: 1 / 2;
-    pointer-events: none;
 }
 
 li.item.switch label small {
     font: var(--typescale-body-medium);
     letter-spacing: var(--typescale-body-medium-tracking);   
     grid-row: 2 / 3;
-    pointer-events: none;
-    display: block;
 }
 
 li.item.switch label input+small,
@@ -653,6 +773,49 @@ export class SwitchItem extends Item {
 
     set disabled(bool) { this.node.querySelector('input.switch').disabled = bool; }
     get disabled() { return this.node.querySelector('input.switch').disabled; }
+}
+
+CSS`
+li.item.toggle.checkbox>label>input::after {
+    content: "\\e835";
+}
+
+li.item.toggle.checkbox>label>input:checked::after {
+    content: "\\e834";
+}
+
+li.item.toggle.checkbox>label>input:intermediate::after {
+    content: "\\e909";
+}
+`
+export class CheckboxItem extends ToggleItem {
+
+    constructor(properties) {
+        super(properties);
+
+        this.node.classList.add('checkbox');
+    }
+}
+
+CSS`
+li.item.toggle.radio>label>input::after {
+    content: "\\e836";
+}
+
+li.item.toggle.radio>label>input:checked::after {
+    content: "\\e837"
+}
+`
+export class RadioItem extends ToggleItem {
+
+    constructor(properties) {
+        super(properties);
+
+        this.node.classList.add('radio');
+        this.node.querySelector('input').type = 'radio';
+    }
+
+    set group(str) { this.node.querySelector('input').name = str; }
 }
 
 /* --------------------------------------------- */

@@ -10,9 +10,9 @@
     <link rel="preload" href="/fonts/materialicons-regular-webfont.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/roboto-medium-webfont.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/roboto-regular-webfont.woff2" as="font" type="font/woff2" crossorigin>
-    <link href="color-light.css" rel="stylesheet" as="style" type="text/css"
+    <link href="color-light.css" rel="stylesheet" type="text/css"
         media="screen and (prefers-color-scheme: light)">
-    <link href="color-dark.css" rel="stylesheet" as="style" type="text/css"
+    <link href="color-dark.css" rel="stylesheet" type="text/css"
         media="screen and (prefers-color-scheme: dark)">
     <style>
         @font-face {
@@ -159,6 +159,8 @@
             ListLayout,
             ListItem,
             SwitchItem,
+            CheckboxItem,
+            RadioItem
         } from '/layout.mjs'
 
         CSS`
@@ -314,6 +316,23 @@
                     title: 'BBBB',
                     id: 'b',
                     items: [
+                        new CheckboxItem({
+                            label: 'Checkbox'//, sublabel: 'sublabel'
+                        }),
+                        new CheckboxItem({
+                            label: 'Checkbox 2', sublabel: 'sublabel'
+                        }),
+                        new RadioItem({
+                            label: 'RadioItem 1',// sublabel: 'sublabel',
+                            group: 'group',
+                            alignedLeft: true
+                        }),
+                        new RadioItem({
+                            label: 'RadioItem 2',
+                            group: 'group',
+                            checked: true,
+                            alignedLeft: true
+                        }),
                         new ListItem({ onclick: (e) => { e.preventDefault(); }, headline: 'aaa', target: 'aaa', subtext: "subtext", subtext2: "subtext2", leading: new Icon({ icon: "\ue88a" }), trailing: new Icon({ icon: "\ue88a" }) }),
                         new ListItem({ onclick: (e) => { e.preventDefault(); }, headline: 'aaa', target: 'aaa', subtext: "subtext", leading: new Icon({ icon: "\ue88a" }), trailing: new Icon({ icon: "\ue88a" }) }),
                         new SwitchItem({
@@ -329,7 +348,7 @@
                         new SwitchItem({
                             // label: 'Switch 1',
                             sublabel: 'sublabel 1',
-                            disabled: true,
+                            //disabled: true,
                             icon: {
                                 checked: "\ue876",
                                 //unchecked: "\ue5cd"
