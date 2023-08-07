@@ -317,18 +317,32 @@
                     id: 'b',
                     items: [
                         new CheckboxItem({
-                            label: 'Checkbox'//, sublabel: 'sublabel'
+                            label: 'Checkbox',//, sublabel: 'sublabel'
                         }),
                         new CheckboxItem({
-                            label: 'Checkbox 2', sublabel: 'sublabel'
+                            label: 'Checkbox 2', sublabel: 'sublabel', checked: true
+                        }),
+                        new CheckboxItem({
+                            label: 'Checkbox 3', sublabel: 'sublabel', indeterminate: true
+                        }),
+                        new CheckboxItem({
+                            label: 'Checkbox 4', sublabel: 'sublabel', required: true
+                        }),
+                        new CheckboxItem({
+                            label: 'Checkbox 5', sublabel: 'sublabel', disabled: true, checked: true
                         }),
                         new RadioItem({
                             label: 'RadioItem 1',// sublabel: 'sublabel',
                             group: 'group',
-                            alignedLeft: true
+                            alignedLeft: true, disabled: true
                         }),
                         new RadioItem({
                             label: 'RadioItem 2',
+                            group: 'group',
+                            alignedLeft: true
+                        }),
+                        new RadioItem({
+                            label: 'RadioItem 3',
                             group: 'group',
                             checked: true,
                             alignedLeft: true
@@ -342,6 +356,7 @@
                                 checked: "\ue876",
                                 unchecked: "\ue5cd"
                             },
+                            alignedLeft: true,
                             //onclick: (e)=>{e.preventDefault()}
 
                         }),
