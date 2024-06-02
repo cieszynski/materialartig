@@ -1,0 +1,8 @@
+[{
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "app.web.materialartig.twa",
+      "sha256_cert_fingerprints": ["47:FF:47:FF:81:A2:0E:26:28:C5:91:22:7B:AB:74:5E:AE:E1:54:86:AD:A9:C5:ED:CD:FB:84:39:87:F5:C6:CA"]
+    }
+  }]
