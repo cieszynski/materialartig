@@ -1,0 +1,131 @@
+@import url(/colors.dark.css) (prefers-color-scheme: dark);
+@import url(/colors.light.css);
+@import url(../typescale.css);
+
+:host {
+    display: flex;
+    justify-content: center;
+    color: var(--color-on-surface);
+    --navigation-button-icon: var(--navigation-button-icon-default);
+    width: 100%;
+}
+
+:host([aria-selected=true]) {
+    --navigation-button-icon: var(--navigation-button-icon-checked);
+}
+
+:host([aria-disabled=true]) {
+    color: var(--color-on-surface-variant);
+}
+
+button {
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: none;
+    border: none;
+    color: currentColor;
+    width: 100%;
+    height: 100%;
+}
+
+button::before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 32px;
+    border-radius: 16px;
+}
+
+button:hover::before {
+    background-color: var(--color-secondary-container);
+    background-image: linear-gradient(color-mix(in srgb, var(--color-on-surface) 8%, transparent),
+            color-mix(in srgb, var(--color-on-surface) 8%, transparent));
+}
+
+button:focus::before,
+:host([aria-selected=true]) button::before {
+    background-color: var(--color-secondary-container);
+    background-image: linear-gradient(color-mix(in srgb, var(--color-on-surface) 10%, transparent),
+            color-mix(in srgb, var(--color-on-surface) 10%, transparent));
+}
+
+div.icon {
+    width: 32px;
+    height: 32px;
+    mask-size: 24px;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-image: var(--navigation-button-icon);
+    background-color: currentColor;
+}
+
+div.label,
+div.bagde {
+    position: relative;
+}
+
+/* compact */
+@media screen and (max-width: 599px) {
+    button::before {
+        max-width: 64px;
+    }
+}
+
+/* medium */
+@media screen and (min-width: 600px) and ((max-width: 839px)) {
+
+    button {
+        width: 56px;
+        height: 56px;
+    }
+
+    button::before {
+        width: 56px;
+    }
+}
+
+/* expanded */
+@media screen and (min-width: 840px) and ((max-width: 1199px)) {
+    :host {
+        /* padding: 0 12px; */
+    }
+
+    button {
+        padding: 0 11px;
+        flex-direction: row;
+        width: 336px;
+        height: 56px;
+        gap: 6px;
+    }
+
+    button::before {
+        width: 100%;
+        height: 100%;
+        border-radius: 28px;
+        left: 0;
+    }
+
+    div.label {
+        flex: 1;
+        text-align: start;
+    }
+
+    div.badge {
+        width: 32px;
+        height: 32px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+/* large */
+@media screen and (min-width: 1200px) and ((max-width: 1599px)) {}
+
+/* extra-large */
+@media screen and (min-width: 1600px) {}

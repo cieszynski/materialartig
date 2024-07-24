@@ -1,32 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 
 <head>
-    <title>materialrtig</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="red" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="blue" media="(prefers-color-scheme: dark)">
-    <link rel="manifest" href="manifest.json" />
-    <style>
-        :root {
-            color-scheme: light dark;
-        }
+    <title>materialartig.web.app</title>
 
-        @media (prefers-color-scheme: light) {
-            body {
-                color: black;
-                background-color: white;
-            }
-        }
+    <link rel="preload" href="https://cdn.jsdelivr.net/gh/cieszynski/materialartig@main/dist/fonts/roboto-medium-webfont.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://cdn.jsdelivr.net/gh/cieszynski/materialartig@main/dist/fonts/roboto-regular-webfont.woff2" as="font" type="font/woff2" crossorigin>
 
-        @media (prefers-color-scheme: dark) {
-            body {
-                color: white;
-                background-color: black;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cieszynski/materialartig@main/dist/css/typescale.css">
+    <link rel="stylesheet" href="/colors.light.css">
+    <link rel="manifest" href="/manifest.json" />
+
     <script>
         const registerServiceWorker = async () => {
             if ("serviceWorker" in navigator) {
@@ -53,8 +39,80 @@
     </script>
 </head>
 
-<body>
-    <h1>materialartig</h1>
-</body>
+<script type="importmap">
+        {
+            "imports": {
+                "/modules/": "https://cdn.jsdelivr.net/gh/cieszynski/materialartig@main/dist/modules/"
+            }
+        }
+    </script>
+<script type="module">
+    import {
+        App,
+        ListDetail,
+        Icon
+    } from '/modules/m12.mjs'
+
+    import {
+        NavigationButton,
+        NavigationRail
+    } from '/modules/navigation.mjs';
+
+    import {
+        SmallBadge,
+        LargeBadge
+    } from '/modules/badges.mjs';
+
+    const dowhat = (e) => {
+        alert(e)
+    }
+
+    const app = App({
+        navigation: NavigationRail({
+            align: 'center',
+            menu: false,
+            fab: null,
+            buttons: [
+                NavigationButton({
+                    icon: [
+                        'https://cdn.jsdelivr.net/gh/cieszynski/materialartig@main/dist/icons/outline/home.svg',
+                        'https://cdn.jsdelivr.net/gh/cieszynski/materialartig@main/dist/icons/filled/home.svg'
+                    ],
+                    badge: SmallBadge({ hidden: false, label: 'nichts Neues' }),
+                    label: 'Start',
+                    selected: true
+                }),
+
+                NavigationButton({
+                    icon: [
+                        'https://cdn.jsdelivr.net/gh/cieszynski/materialartig@main/dist/icons/outline/home.svg',
+                        'https://cdn.jsdelivr.net/gh/cieszynski/materialartig@main/dist/icons/filled/home.svg'
+                    ],
+                    label: 'Home',
+                    badge: SmallBadge()
+                    //disabled: true,
+                    //onclick: dowhat
+                }),
+
+                NavigationButton({
+                    icon: [
+                        'https://cdn.jsdelivr.net/gh/cieszynski/materialartig@main/dist/icons/outline/help.svg',
+                        'https://cdn.jsdelivr.net/gh/cieszynski/materialartig@main/dist/icons/filled/help.svg'
+                    ],
+                    label: 'Hilfe',
+                    badge: LargeBadge({
+                        label: 'irgendwas',
+                        value: 999,
+                        visible: true
+                    }),
+                    onclick: function (e) {
+                        this.badge.hidden = true
+                    }
+                })
+            ]
+        }),
+        layout: ListDetail(),
+    });
+</script>
 
 </html>

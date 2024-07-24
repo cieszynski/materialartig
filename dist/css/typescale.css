@@ -1,0 +1,26 @@
+@font-face {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
+    src: url("/fonts/roboto-regular-webfont.woff2") format('woff2');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 500;
+    src: url("/fonts/roboto-medium-webfont.woff2") format('woff2');
+    font-display: swap;
+}
+
+:root {
+    --typeface-brand: Roboto;
+    --typeface-plain: Roboto;
+
+    --typescale-label-small-font: 500 11px/16px var(--typeface-brand);
+    --typescale-label-small-track: .5px;
+
+    --typescale-label-medium-font: 500 12px/16px var(--typeface-brand);
+    --typescale-label-medium-track: .5px;
+}

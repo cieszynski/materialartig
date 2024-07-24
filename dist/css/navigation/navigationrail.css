@@ -1,0 +1,101 @@
+:host {
+    appearance: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* compact */
+@media screen and (max-width: 599px) {
+    :host {
+        width: 100%;
+        height: 80px;
+        flex-direction: row;
+        padding: 12px 0 16px 0 !important;
+        gap: 8px;
+    }
+}
+
+
+/* medium */
+@media screen and (min-width: 600px) and (max-width: 839px) {
+    :host {
+        width: 80px;
+        height: 100%;
+        gap: 12px;
+    }
+}
+
+
+/* expanded, large, extra-large */
+@media screen and (min-width: 840px)/* (max-width: 1199px) */ {
+    :host {
+        width: 360px;
+        height: 100%;
+        gap: 12px;
+        padding: 12px !important;
+    }
+}
+
+/* large */
+@media screen and (min-width: 1200px) and ((max-width: 1599px)) {}
+
+/* extra-large */
+@media screen and (min-width: 1600px) {}
+
+/* @import url(/colors.dark.css) (prefers-color-scheme: dark);
+@import url(/colors.light.css);
+
+:host {
+    background-color: var(--color-surface-container);
+}
+
+/* compact * /
+@media screen and (max-width: 599px) {
+    :host {
+        width: 100%;
+        height: 80px;
+        padding: 12px 16px 16px 16px !important;
+
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: 1fr;
+        gap: 8px;
+    }
+}
+
+/* medium * /
+@media screen and (min-width: 600px) and (max-width: 839px) {
+    :host {
+        width: 80px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: var(--navigation-rail-align);
+        padding-top: 12px;
+        padding-top: max(var(--navigation-rail-padding-top), 12px )!important;
+        gap: 12px;
+    }
+}
+
+/* expanded, large, extra-large * /
+@media screen and (min-width: 840px) /* and (max-width: 1199px)  * / {
+    :host {
+        width: 360px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 12px !important;
+    }
+}
+
+/* large  /
+@media screen and (min-width: 1200px) and (max-width: 1599px) {}
+
+/* extra-large * /
+@media screen and (min-width: 1600px) {} */

@@ -1,0 +1,208 @@
+:host {
+    font: var(--typescale-label-medium-font);
+    letter-spacing: var(--typescale-label-medium-track);
+    color: var(--color-on-surface-variant);
+    position: relative;
+    width: 100%;
+}
+
+:host(:focus) {
+    outline: none
+}
+
+:host::before {
+    background-color: var(--color-secondary-container);
+}
+
+:host([aria-selected=true]) {
+    color: var(--color-on-surface);
+}
+
+/* compact */
+@media screen and (max-width: 599px) {
+    :host {
+        display: flex;
+        align-items: center;
+        flex-direction: column-reverse;
+        height: 100%;
+    }
+
+    :host::before {
+        content: "";
+        position: absolute;
+        margin: auto;
+        top: 0;
+        width: 32px;
+        height: 32px;
+        border-radius: 16px;
+        opacity: 0;
+    }
+
+    :host(:hover)::before {
+        transition: width .3s, opacity .6s;
+        width: 64px;
+        opacity: 1;
+    }
+
+    :host(:focus)::before {
+        outline: 1px solid black;
+        width: 64px;
+        opacity: 1;
+    }
+
+    :host([aria-selected=true])::before {
+        width: 64px;
+        opacity: 1;
+    }
+
+    :host::after {
+        content: "";
+        position: absolute;
+        margin: auto;
+        top: 0;
+        width: 32px;
+        height: 32px;
+        mask-size: 24px;
+        mask-repeat: no-repeat;
+        mask-position: center;
+        mask-image: var(--mask-image-url);
+        background-color: currentColor;
+    }
+
+    :host([aria-selected=true])::after {
+        mask-image: var(--mask-image-url-active);
+    }
+}
+
+/* medium */
+@media screen and (min-width: 600px) and (max-width: 839px) {
+    :host {
+        display: flex;
+        align-items: center;
+        flex-direction: column-reverse;
+        /* 52px used for the label bottom distance */
+        height: 52px;
+    }
+
+    :host::before {
+        content: "";
+        position: absolute;
+        margin: auto;
+        top: 0;
+        width: 32px;
+        height: 32px;
+        /* 
+        background-color: var(--color-secondary-container); */
+        border-radius: 16px;
+        opacity: 0;
+    }
+
+    :host(:hover)::before {
+        transition: width .3s, opacity .6s;
+        width: 64px;
+        opacity: 1;
+    }
+
+    :host(:focus)::before {
+        outline: 1px solid black;
+        width: 64px;
+        opacity: 1;
+    }
+
+    :host([aria-selected=true])::before {
+        width: 64px;
+        opacity: 1;
+    }
+
+    :host::after {
+        content: "";
+        position: absolute;
+        margin: auto;
+        top: 0;
+        width: 32px;
+        height: 32px;
+        mask-size: 24px;
+        mask-repeat: no-repeat;
+        mask-position: center;
+        mask-image: var(--mask-image-url);
+        background-color: currentColor;
+    }
+
+    :host([aria-selected=true])::after {
+        mask-image: var(--mask-image-url-active);
+    }
+}
+
+/* expanded, large, extra-large */
+@media screen and (min-width: 840px) /* and (max-width: 1199px)  */{
+    :host {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 288px;
+        height: 56px;
+        padding: 0 0 0 48px !important;
+    }
+
+    :host::before {
+        /* webkit: space in content required for z-index: -1 */
+        content: " ";
+        position: absolute;
+        margin: auto;
+        /* for margin: auto, position: absolute: */
+        left: 0;
+        right: 0;
+        width: 32px;
+        /*  */
+        height: 56px;
+        background-color: var(--color-secondary-container);
+        border-radius: 28px;
+        opacity: 0;
+        z-index: -1;
+    }
+
+    :host(:hover)::before {
+        transition: width .3s, opacity .6s;
+        width: 100%;
+        opacity: 1;
+    }
+
+    :host(:focus)::before {
+        outline: 1px solid black;
+        width: 100%;
+        opacity: 1;
+    }
+
+    :host([aria-selected=true])::before {
+        width: 100%;
+        opacity: 1;
+    }
+
+    :host::after {
+        content: "";
+        position: absolute;
+        /* margin: auto */
+        margin: auto;
+        top: 0;
+        left: 8px;
+        bottom: 0;
+        /*  */
+        width: 32px;
+        height: 32px;
+        mask-size: 24px;
+        mask-repeat: no-repeat;
+        mask-position: center;
+        mask-image: var(--mask-image-url);
+        background-color: currentColor;
+    }
+
+    :host([aria-selected=true])::after {
+        mask-image: var(--mask-image-url-active);
+    }
+}
+
+/* large */
+@media screen and (min-width: 1200px) and (max-width: 1599px) {}
+
+/* extra-large */
+@media screen and (min-width: 1600px) {}
