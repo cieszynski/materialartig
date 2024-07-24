@@ -11,7 +11,7 @@ class SmallBadgeClass extends HTMLElement {
     }
 
     connectedCallback() {
-        fetch(import.meta.resolve('/css/badge/smallbadge.css'))
+        fetch(import.meta.resolve('../css/badge/smallbadge.css'))
             .then(response => response.text())
             .then(text => (new CSSStyleSheet()).replace(text))
             .then(style => this.shadowRoot.adoptedStyleSheets.push(style));
@@ -40,7 +40,7 @@ class LargeBadgeClass extends HTMLElement {
     }
 
     connectedCallback() {
-        fetch(import.meta.resolve('/css/badge/largebadge.css'))
+        fetch(import.meta.resolve('../css/badge/largebadge.css'))
             .then(response => response.text())
             .then(text => (new CSSStyleSheet()).replace(text))
             .then(style => this.shadowRoot.adoptedStyleSheets.push(style));

@@ -45,7 +45,7 @@ class AppClass extends HTMLElement {
     }
 
     connectedCallback() {
-        fetch(import.meta.resolve('/css/app.css'))
+        fetch(import.meta.resolve('../css/app.css'))
             .then(response => response.text())
             .then(text => (new CSSStyleSheet()).replace(text))
             .then(style => this.shadowRoot.adoptedStyleSheets.push(style));
@@ -83,7 +83,7 @@ class ListDetailClass extends HTMLElement {
             <span>layout1</span>
             <slot/>`
 
-        fetch(import.meta.resolve('/css/layout/listdetail.css'))
+        fetch(import.meta.resolve('../css/layout/listdetail.css'))
             .then(response => response.text())
             .then(text => (new CSSStyleSheet()).replace(text))
             .then(style => this.shadowRoot.adoptedStyleSheets.push(style));

@@ -1,4 +1,8 @@
+
+
+
 class NavigationRailClass extends HTMLElement {
+
 
     //align = 'center';
     menu = false;
@@ -9,7 +13,7 @@ class NavigationRailClass extends HTMLElement {
 
         this.role = 'tablist';
 
-        this.attachShadow({ mode: 'open'/* , delegatesFocus: true  */ });
+        this.attachShadow({ mode: 'open' });
 
         const onfocus = (event) => {
             const element = this.shadowRoot.querySelector(':focus');
@@ -61,7 +65,7 @@ class NavigationRailClass extends HTMLElement {
     }
 
     connectedCallback() {
-        fetch(import.meta.resolve('/css/navigation/navigationrail.css'))
+        fetch(import.meta.resolve('../css/navigation/navigationrail.css'))
             .then(response => response.text())
             .then(text => (new CSSStyleSheet()).replace(text))
             .then(style => this.shadowRoot.adoptedStyleSheets.push(style));
@@ -96,7 +100,7 @@ class NavigationButtonClass extends HTMLElement {
 
         this.addEventListener('click', e => {
             e.preventDefault();
-
+ 
             Array.from(this.parentNode.children).forEach(element => {
                 element.selected = (this === element);
             });
@@ -115,7 +119,7 @@ class NavigationButtonClass extends HTMLElement {
     }
 
     connectedCallback() {
-        fetch(import.meta.resolve('/css/navigation/navigationbutton.css'))
+        fetch(import.meta.resolve('../css/navigation/navigationbutton.css'))
             .then(response => response.text())
             .then(text => (new CSSStyleSheet()).replace(text))
             .then(style => this.shadowRoot.adoptedStyleSheets.push(style));
