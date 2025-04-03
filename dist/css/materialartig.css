@@ -1,0 +1,39 @@
+@layer layout {
+
+    *,
+    *::after,
+    *::before {
+        margin: 0;
+        text-decoration: none;
+        box-sizing: border-box;
+    }
+
+    body {
+        /* prevents addressbar movement */
+        overflow: hidden;
+        height: 100%;
+    }
+
+    h1 {
+        font-size: 0;
+    }
+
+    html {
+        /* prevents addressbar movement */
+        overflow: hidden;
+        height: 100%;
+    }
+
+    /* common for all sections */
+    section {
+        display: none;
+        position: absolute;
+        inset: 0;
+
+        &:target,
+        &:has(:target) {
+            display: flex;
+        }
+    }
+
+}

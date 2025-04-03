@@ -1,5 +1,9 @@
 @layer style {
 
+    :root {
+        font-family: sans-serif;
+    }
+
     main {
 
         /* if no :target then show first-of-type */
@@ -17,8 +21,21 @@
 
             /* NAVBAR BUTTON */
             &>a {
-                background-color: #ddd;
+                background-color: #252525;
                 color: #999;
+                font-size: 14px;
+
+                &::before {
+                    border-radius: 50%;
+                    inset: 3px;
+                    background-color: #323234;
+                    position: absolute;
+                    content: "X";
+                }
+
+                &::after {
+                    content: "X";
+                }
             }
 
             /* NAVIGATION DESTINATION */
@@ -58,6 +75,20 @@
                         &>section {
                             background-color: #ffff00;
                         }
+                    }
+                }
+
+                /* navbar rounded corner */
+                &:first-of-type {
+                    &>a {
+                        border-radius: 50% 0 0 50%;
+                    }
+                }
+
+                /* navbar rounded corner */
+                &:last-of-type {
+                    &>a {
+                        border-radius: 0 50% 50% 0;
                     }
                 }
             }
@@ -103,6 +134,20 @@
                                 display: flex;
                             }
                         }
+                    }
+                }
+
+                /* navbar rounded corner */
+                &:first-of-type {
+                    &>a {
+                        border-radius: 50% 50% 0 0;
+                    }
+                }
+
+                /* navbar rounded corner */
+                &:last-of-type {
+                    &>a {
+                        border-radius: 0 0 50% 50%;
                     }
                 }
             }

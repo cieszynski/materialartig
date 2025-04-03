@@ -7,33 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <style>
-        @import url("https://cdn.jsdelivr.net/gh/cieszynski/materialartig@0.0.1-alpha/dist/css/navbar.layout.css");
-        @import url("https://cdn.jsdelivr.net/gh/cieszynski/materialartig@0.0.1-alpha/dist/css/navbar.style.css");
+        @import url("materialartig.css");
+        @import url("navigationbar.materialartig.css");
+        @import url("listdetailview.materialartig.css");
+        
+        @import url("https://cdn.jsdelivr.net/gh/cieszynski/materialartig@0.0.1-alpha/dist/css/materialartig.css");
+        @import url("https://cdn.jsdelivr.net/gh/cieszynski/materialartig@0.0.1-alpha/dist/css/navigationbar.materialartig.css");
+        @import url("https://cdn.jsdelivr.net/gh/cieszynski/materialartig@0.0.1-alpha/dist/css/listdetailview.materialartig.css");
+
         @layer layout, style;
 
-        *,
-        *::after,
-        *::before {
-            margin: 0;
-            padding: 0;
-            text-decoration: none;
-            box-sizing: border-box;
-        }
-
-        body {
-            /* prevents addressbar movement */
-            overflow: hidden;
-            height: 100%;
-        }
-
-        h1 {
-            font-size: 0;
-        }
-
-        html {
-            /* prevents addressbar movement */
-            overflow: hidden;
-            height: 100%;
+        a {
+            border: 1px solid black;
         }
     </style>
 
@@ -41,91 +26,93 @@
 
 <body>
     <h1>h1</h1>
-    <main>
-        <article>
+    <main class="navigationbar">
+        <article class="navigationbar-destination">
             <h2>h2</h2>
-            <section id="s1">
+            <section id="s1" class="listdetailview">
                 <h3>h3</h3>
-                <article>
+                <article class="listview">
                     <h4>h4</h4>
-                    <section id="s11">
-                        <h5>h4</h5>
+                    <section id="s11" class="listdetail">
+                        <h5>h5</h5>
                         <p>p11</p>
                     </section>
-                    <a href="#s11">
+                    <a href="#s11" class="listitem">
                         a11
                     </a>
                 </article>
                 <article>
-                    <h3>h3</h3>
-                    <section id="s12">
-                        <h4>h4</h4>
+                    <h4>h4</h4>
+                    <section id="s12" class="listdetail">
+                        <h5>h5</h5>
                         <p>p12</p>
                     </section>
-                    <a href="#s12">
+                    <a href="#s12" class="listitem">
                         a12
                     </a>
                 </article>
             </section>
-            <a href="#s1">
+            <a href="#s1" class="navigationbar-button">
                 a1
             </a>
         </article>
-        <article>
+
+        <article class="navigationbar-destination">
             <h2>h2</h2>
-            <section id="s2">
+            <section id="s2" class="listdetailview">
                 <h3>h3</h3>
-                <article>
+                <article class="listview">
                     <h4>h4</h4>
-                    <section id="s21">
-                        <h5>h4</h5>
+                    <section id="s21" class="listdetail">
+                        <h5>h5</h5>
                         <p>p21</p>
                     </section>
-                    <a href="#s21">
+                    <a href="#s21" class="listitem">
                         a21
                     </a>
                 </article>
                 <article>
                     <h4>h4</h4>
-                    <section id="s22">
-                        <h5>h4</h5>
+                    <section id="s22" class="listdetail">
+                        <h5>h5</h5>
                         <p>p22</p>
                     </section>
-                    <a href="#s22">
+                    <a href="#s22" class="listitem">
                         a22
                     </a>
                 </article>
             </section>
-            <a href="#s2">
+            <a href="#s2" class="navigationbar-button">
                 a2
             </a>
         </article>
-        <article>
+
+        <article class="navigationbar-destination">
             <h2>h2</h2>
-            <section id="s3">
+            <section id="s3" class="listdetailview">
                 <h3>h3</h3>
-                <article>
+                <article class="listview">
                     <h4>h4</h4>
-                    <section id="s31">
-                        <h5>h4</h5>
+                    <section id="s31" class="listdetail">
+                        <h5>h5</h5>
                         <p>p31</p>
                     </section>
-                    <a href="#s31">
+                    <a href="#s31" class="listitem">
                         a31
                     </a>
                 </article>
                 <article>
                     <h4>h4</h4>
-                    <section id="s32">
-                        <h5>h4</h5>
+                    <section id="s32" class="listdetail">
+                        <h5>h5</h5>
                         <p>p32</p>
                     </section>
-                    <a href="#s32">
+                    <a href="#s32" class="listitem">
                         a32
                     </a>
                 </article>
             </section>
-            <a href="#s3">
+            <a href="#s3" class="navigationbar-button">
                 a3
             </a>
         </article>

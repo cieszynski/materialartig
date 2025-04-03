@@ -1,0 +1,38 @@
+@layer layout {
+
+    a.listitem {
+        display: block;
+    }
+
+    @media (orientation: portrait) {
+
+        section.listdetailview {
+            border: 1px solid gray;
+            flex-direction: column;
+        }
+        section.listdetail {
+            background-color: #ddd;
+        }
+    }
+
+    @media (orientation: landscape) {
+
+        a.listitem {
+            width: 35%;
+            border: 1px solid green;
+            display: block;
+        }
+        article.listview {}
+
+
+        section.listdetailview {
+            border: 1px solid red;
+        }
+
+        section.listdetail {
+            inset: 0 0 0 35%;
+            border: 1px solid blue;
+            width: 65%;
+        }
+    }
+}
