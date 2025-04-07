@@ -1,62 +1,40 @@
-*,
-*::after,
-*::before {
-    margin: 0;
-    text-decoration: none;
-    box-sizing: border-box;
-}
+@layer layout {
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-size: 0;
-}
-
-html {
-    /* prevents addressbar movement */
-    overflow: hidden;
-    height: 100%;
-}
-
-body {
-    display: flex;
-    /* prevents addressbar movement */
-    overflow: hidden;
-    height: 100%;
-
-    &.navigationbar {
-        flex-direction: row;
-        justify-content: center;
-        align-items: end;
+    *,
+    *::after,
+    *::before {
+        margin: 0;
+        text-decoration: none;
+        box-sizing: border-box;
     }
 
-    &.navigationrail {
-        flex-direction: column;
-        justify-content: center;
-        align-items: start;
+    body {
+        /* prevents addressbar movement */
+        overflow: hidden;
+        height: 100%;
     }
 
-    &.navigationbar.navigationrail {
-        @media (orientation: portrait) {
-            & {
-                flex-direction: row;
-                align-items: end;
-            }
-        }
-
-        @media (orientation: landscape) {
-            & {
-                flex-direction: column;
-                align-items: start;
-            }
-        }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-size: 0;
     }
 
-    &.navigationbar,
-    &.navigationrail {
+    html {
+        /* prevents addressbar movement */
+        overflow: hidden;
+        height: 100%;
+    }
+
+    .navigation-bar,
+    .navigation-rail {
+        overflow: hidden;
+        display: flex;
+        height: 100%;
+        ;
 
         /* if no :target then show first-of-type */
         &:not(:has(:target))>article:first-of-type>section:first-of-type {
@@ -77,127 +55,153 @@ body {
                 background-color: var(--navigation-button-fgcolor-active, inherit);
             }
         }
-    }
 
-    &>article>*.navigation-button {
-        border: var(--debug-border-width, 0) solid gray;
-        color: var(--navigation-button-color, black);
-        justify-content: center;
-        position: relative;
-        align-items: end;
-        display: flex;
-        z-index: 100;
-        height: 80px;
-        width: 80px;
-
-
-        &::before {
-            background-color: var(--navigation-button-bgcolor, inherit);
+        &.navigation-bar {
+            flex-direction: row;
+            justify-content: center;
+            align-items: end;
         }
 
-        &::after {
-            background-color: var(--navigation-button-fgcolor, inherit);
+        &.navigation-rail {
+            flex-direction: column;
+            justify-content: center;
+            align-items: start;
         }
-    }
-}
 
-/* common for all sections */
-section {
-    position: fixed;
-    display: none;
-    inset: 0;
+        &.navigation-bar.navigation-rail {
+            @media (orientation: portrait) {
+                & {
+                    flex-direction: row;
+                    align-items: end;
+                }
+            }
 
-    &:target,
-    &:has(:target) {
-        display: flex;
-    }
+            @media (orientation: landscape) {
+                & {
+                    flex-direction: column;
+                    align-items: start;
+                }
+            }
+        }
 
-    /* if no :target then show first-of-type */
-    &:not(:has(:target))>article:first-of-type>section:first-of-type {
-        @media (orientation: landscape) {
-            &:is(body:is(.navigationrail) article section) {
-                display: flex;
+        &>article>*.navigation-button {
+            border: var(--debug-border-width, 0) solid gray;
+            color: var(--navigation-button-color, black);
+            justify-content: center;
+            position: relative;
+            align-items: end;
+            display: flex;
+            z-index: 100;
+            height: 80px;
+            width: 80px;
+
+
+            &::before {
+                background-color: var(--navigation-button-bgcolor, inherit);
+            }
+
+            &::after {
+                background-color: var(--navigation-button-fgcolor, inherit);
             }
         }
     }
 
-    &:is(body.navigationbar:not(.navigationrail)>article>section) {
-        inset: 0 0 80px 0;
+    /* common for all sections */
+    section {
+        position: fixed;
+        display: none;
+        inset: 0;
 
-        & .listdetailview-content {
+        &:target,
+        &:has(:target) {
+            display: flex;
+        }
+
+        /* if no :target then show first-of-type */
+        &:not(:has(:target))>article:first-of-type>section:first-of-type {
+            @media (orientation: landscape) {
+                &:is(*:is(.navigation-rail) article section) {
+                    display: flex;
+                }
+            }
+        }
+
+        &:is(*.navigation-bar:not(.navigation-rail)>article>section) {
             inset: 0 0 80px 0;
-        }
-    }
 
-    &:is(body.navigationrail:not(.navigationbar)>article>section) {
-        inset: 0 0 0 80px;
-
-        @media (orientation: portrait) {
-            & .listdetailview-content {
-                inset: 0 0 0 80px;
-            }
-        }
-
-        @media (orientation: landscape) {
-            & .listdetailview-item {
-                width: clamp(200px, calc(calc(100vw - 80px) * .3), 360px);
-            }
-
-            & .listdetailview-content {
-                inset: 0 0 0 clamp(280px, calc(80px + calc(calc(100vw - 80px) * .3)), 440px);
-            }
-        }
-    }
-
-    &:is(body.navigationbar.navigationrail>article>section) {
-        @media (orientation: portrait) {
-            & {
-                inset: 0 0 80px 0;
-            }
-
-            & .listdetailview-content {
+            & .layout-list-detail-detail {
                 inset: 0 0 80px 0;
             }
         }
 
-        @media (orientation: landscape) {
-            & {
-                inset: 0 0 0 80px;
+        &:is(*.navigation-rail:not(.navigation-bar)>article>section) {
+            inset: 0 0 0 80px;
+
+            @media (orientation: portrait) {
+                & .layout-list-detail-detail {
+                    inset: 0 0 0 80px;
+                }
             }
 
-            & .listdetailview-item {
-                width: clamp(var(--listdetailview-item-width-min, 200px),
-                        calc(calc(100vw - 80px) * .3),
-                        var(--listdetailview-item-width-max, 360px));
+            @media (orientation: landscape) {
+                & .layout-list-detail-item {
+                    width: clamp(200px, calc(calc(100vw - 80px) * .3), 360px);
+                }
+
+                & .layout-list-detail-detail {
+                    inset: 0 0 0 clamp(280px, calc(80px + calc(calc(100vw - 80px) * .3)), 440px);
+                }
+            }
+        }
+
+        &:is(*.navigation-bar.navigation-rail>article>section) {
+            @media (orientation: portrait) {
+                & {
+                    inset: 0 0 80px 0;
+                }
+
+                & .layout-list-detail-detail {
+                    inset: 0 0 80px 0;
+                }
             }
 
-            & .listdetailview-content {
-                inset: 0 0 0 clamp(calc(var(--listdetailview-item-width-min, 200px) + 80px),
-                        calc(80px + calc(calc(100vw - 80px) * .3)),
-                        calc(var(--listdetailview-item-width-max, 360px) + 80px));
+            @media (orientation: landscape) {
+                & {
+                    inset: 0 0 0 80px;
+                }
+
+                & .layout-list-detail-item {
+                    width: clamp(var(--layout-list-detail-item-width-min, 200px),
+                            calc(calc(100vw - 80px) * .3),
+                            var(--layout-list-detail-item-width-max, 360px));
+                }
+
+                & .layout-list-detail-detail {
+                    inset: 0 0 0 clamp(calc(var(--layout-list-detail-item-width-min, 200px) + 80px),
+                            calc(80px + calc(calc(100vw - 80px) * .3)),
+                            calc(var(--layout-list-detail-item-width-max, 360px) + 80px));
+                }
+            }
+        }
+
+        &.layout-list-detail {
+            overflow: clip auto;
+            background-color: var(--layout-list-detail-bgcolor, inherit);
+            border: var(--debug-border-width, 0) solid green;
+            flex-direction: column;
+
+            & .layout-list-detail-item {
+                display: block;
+                border: var(--debug-border-width, 0) solid yellow;
+                min-height: var(--layout-list-detail-item-height-min, auto);
+                max-height: var(--layout-list-detail-item-height-min, auto);
+                background-color: var(--layout-list-detail-item-bgcolor, inherit);
+            }
+
+            & .layout-list-detail-detail {
+                border: var(--debug-border-width, 0) solid blue;
+                background-color: var(--layout-list-detail-detail-bgcolor, inherit);
             }
         }
     }
-
-    &.listdetailview {
-        overflow: clip auto;
-        background-color: var(--listdetailview-bgcolor, inherit);
-        border: var(--debug-border-width, 0) solid green;
-        flex-direction: column;
-
-        & .listdetailview-item {
-            display: block;
-            border: var(--debug-border-width, 0) solid yellow;
-            min-height: var(--listdetailview-item-height-min, auto);
-            max-height: var(--listdetailview-item-height-min, auto);
-            background-color: var(--listdetailview-item-bgcolor, inherit);
-        }
-
-        & .listdetailview-content {
-            border: var(--debug-border-width, 0) solid blue;
-            background-color: var(--listdetailview-content-bgcolor, inherit);
-        }
-    }
-
-
 }

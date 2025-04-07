@@ -1,99 +1,101 @@
-body:is(.navigationbar, .navigationrail)>article {
-    & .navigation-button {
-        font-size: 0;
-
-        &::before {
-            content: "";
-            position: absolute;
-            background-color: var(--navigation-button-bgcolor, inherit);
-            z-index: -1;
-        }
-
-        &::after {
-            content: "";
-            position: absolute;
-            background-color: var(--navigation-button-fgcolor, inherit);
-            border-radius: 50%;
-            z-index: -1;
-        }
-    }
-
-    @media (orientation: portrait) {
+@layer layout {
+    body:is(.navigation-bar, .navigation-rail)>article {
         & .navigation-button {
-            width: 56px !important;
+            font-size: 0;
 
             &::before {
-                inset: 9px 0;
+                content: "";
+                position: absolute;
+                background-color: var(--navigation-button-bgcolor, inherit);
+                z-index: -1;
             }
 
             &::after {
-                inset: 16px 4px;
+                content: "";
+                position: absolute;
+                background-color: var(--navigation-button-fgcolor, inherit);
+                border-radius: 50%;
+                z-index: -1;
             }
         }
 
-        &:first-of-type .navigation-button {
-            width: 60px !important;
+        @media (orientation: portrait) {
+            & .navigation-button {
+                width: 56px !important;
 
-            &::before {
-                border-radius: 50% 0 0 50%;
-                inset: 9px 0;
+                &::before {
+                    inset: 9px 0;
+                }
+
+                &::after {
+                    inset: 16px 4px;
+                }
             }
 
-            &::after {
-                inset: 16px 4px 16px 8px;
-            }
-        }
+            &:first-of-type .navigation-button {
+                width: 60px !important;
 
-        &:last-of-type .navigation-button {
-            width: 60px !important;
+                &::before {
+                    border-radius: 50% 0 0 50%;
+                    inset: 9px 0;
+                }
 
-            &::before {
-                border-radius: 0 50% 50% 0;
-                inset: 9px 0;
-            }
-
-            &::after {
-                inset: 16px 8px 16px 4px;
-            }
-        }
-    }
-
-    @media (orientation: landscape) {
-        & .navigation-button {
-            height: 56px !important;
-
-            &::before {
-                inset: 0 9px;
+                &::after {
+                    inset: 16px 4px 16px 8px;
+                }
             }
 
-            &::after {
-                inset: 4px 16px;
-            }
-        }
+            &:last-of-type .navigation-button {
+                width: 60px !important;
 
-        &:first-of-type .navigation-button {
-            height: 60px !important;
+                &::before {
+                    border-radius: 0 50% 50% 0;
+                    inset: 9px 0;
+                }
 
-            &::before {
-                border-radius: 36px 36px 0 0;
-                inset: 0 9px;
-            }
-
-            &::after {
-                inset: 8px 16px 4px 16px;
+                &::after {
+                    inset: 16px 8px 16px 4px;
+                }
             }
         }
 
-        &:last-of-type .navigation-button {
-            height: 60px !important;
+        @media (orientation: landscape) {
+            & .navigation-button {
+                height: 56px !important;
 
-            &::before {
-                border-radius: 0 0 36px 36px;
-                inset: 0 9px;
+                &::before {
+                    inset: 0 9px;
+                }
+
+                &::after {
+                    inset: 4px 16px;
+                }
             }
 
-            &::after {
-                inset: 4px 16px 8px 16px;
+            &:first-of-type .navigation-button {
+                height: 60px !important;
+
+                &::before {
+                    border-radius: 36px 36px 0 0;
+                    inset: 0 9px;
+                }
+
+                &::after {
+                    inset: 8px 16px 4px 16px;
+                }
+            }
+
+            &:last-of-type .navigation-button {
+                height: 60px !important;
+
+                &::before {
+                    border-radius: 0 0 36px 36px;
+                    inset: 0 9px;
+                }
+
+                &::after {
+                    inset: 4px 16px 8px 16px;
+                }
             }
         }
     }
